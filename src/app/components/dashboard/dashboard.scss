@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    padding: 8px;
+    gap: 8px;
+    box-sizing: border-box;
+
+    .shop {
+        border-radius: 10px;
+        background-color: lightblue;
+        flex: 1 1 auto;
+        min-height: 0;
+        padding: 8px;
+        overflow-y: scroll;
+
+        h1 {
+            text-align: center;
+            text-decoration: underline;
+            margin: 4px 4px 18px 4px;
+        }
+
+        .shop-items {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            grid-auto-rows: 1fr;
+        }
+    }
+}

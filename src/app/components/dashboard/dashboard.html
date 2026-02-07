@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="shop">
+    <h1>Shop</h1>
+    <div class="shop-items">
+      @for (item of shopItems; track shopItems) {
+        <app-card-image
+          [caption]="item.name"
+          [description]="item.description"
+          [cost]="item.cost"
+          (click)="showItemView(item)"
+        />
+      }
+    </div>
+    @if (itemViewVisible && selectedItem != null) {
+      <div class="item-view">
+        <app-item-view [item]="selectedItem" />
+      </div>
+    }
+  </div>
+</div>

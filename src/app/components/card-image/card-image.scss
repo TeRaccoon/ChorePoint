@@ -1,0 +1,84 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    border-radius: 5px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    padding: 14px;
+    height: -webkit-fill-available;
+    transition: box-shadow 0.5s ease;
+    background-color: #FFD580;
+    cursor: pointer;
+
+    .image-container {
+        position: relative;
+        border-radius: 5px;
+        overflow: hidden;
+
+        .image {
+            line-height: 0;
+
+            img {
+                aspect-ratio: 1 / 1;
+                width: 100%;
+                border-radius: 5px;
+            }
+        }
+
+        .caption-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            border-radius: 0 0 5px 5px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            width: 100%;
+            box-sizing: border-box;
+
+            .caption {
+                margin: 0px;
+                font-weight: bold;
+                letter-spacing: 1px;
+                color: white;
+                text-align: center;
+            }
+        }
+    }
+
+    .description-container {
+        .description {
+            padding: 8px;
+            margin: 0px;
+        }
+    }
+
+    .footer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 12px;
+        align-self: flex-end;
+        justify-self: end;
+        width: 100%;
+
+        .icon-container {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: translateX(5px);
+                transition: transform 0.3s ease;
+            }
+        }
+
+        &> :only-child {
+            margin-left: auto;
+        }
+    }
+
+    &:hover {
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+        transition: box-shadow 0.5s ease;
+    }
+}

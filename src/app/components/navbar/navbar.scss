@@ -1,0 +1,20 @@
+.navbar {
+    border-radius: 10px;
+    background-color: lightblue;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    margin: 8px 8px 0 8px;
+    flex: 0 0 auto;
+
+    .welcome,
+    .points {
+        display: flex;
+        gap: 5px;
+
+    }
+
+    .value {
+        font-weight: bold;
+    }
+}

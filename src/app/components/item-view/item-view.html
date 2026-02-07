@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="header"></div>
+  <div class="image-container">
+    <div class="image">
+      <img [src]="item.imageUrl ?? 'reward.png'" />
+    </div>
+    <div class="caption-container">
+      @if (item.name) {
+        <p class="caption">{{ item.name }}</p>
+      }
+    </div>
+  </div>
+  <div class="description-container">
+    @if (item.description) {
+      <p class="description">{{ item.description }}</p>
+    }
+  </div>
+  <div class="footer">
+    <p>
+      Cost: <span>{{ item.cost }}</span> points
+    </p>
+  </div>
+  <div class="options">
+    <button [class.disabled]="!purchaseEnabled" (click)="purchase()">Purchase</button>
+  </div>
+</div>
+@if (warningVisible) {
+  <div class="warning-container">
+    <div class="warning-header">
+      <fa-icon />
+    </div>
+    <div class="warning-message">
+      <p>You do not have enough points to purchase this item!</p>
+    </div>
+  </div>
+}
