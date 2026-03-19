@@ -1,9 +1,11 @@
 import { Component, Input } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faX } from '@fortawesome/free-solid-svg-icons';
 import { ShopItem } from '../types';
 
 @Component({
   selector: 'app-item-view',
-  imports: [],
+  imports: [FontAwesomeModule],
   templateUrl: './item-view.html',
   styleUrl: './item-view.scss',
 })

@@ -1,0 +1,14 @@
+@switch (slide) {
+  @case (1) {
+    <app-welcome (nextSlideEvent)="nextSlide()" (skipTutorialEvent)="skipTutorial()" />
+  }
+  @case (2) {
+    <app-how-it-works (nextSlideEvent)="nextSlide()" (prevSlideEvent)="prevSlide()" />
+  }
+  @case (3) {
+    <app-create-profile (nextSlideEvent)="nextSlide()" (prevSlideEvent)="prevSlide()" />
+  }
+  @case (4) {
+    <app-get-started (nextSlideEvent)="nextSlide()" (prevSlideEvent)="prevSlide()" />
+  }
+}

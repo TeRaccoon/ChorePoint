@@ -1,0 +1,140 @@
+.slide {
+    padding: 40px 30px;
+    text-align: center;
+    min-height: 600px;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .slide-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .slide-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .slide-description {
+            font-size: 16px;
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .illustration {
+            font-size: 120px;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .feature-list {
+            text-align: left;
+            margin: 20px 0;
+
+            .feature-item {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                margin-bottom: 15px;
+
+                .feature-icon {
+                    width: 50px;
+                    height: 50px;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 24px;
+                    flex-shrink: 0;
+                }
+
+                .feature-text {
+                    flex: 1;
+
+                    .feature-title {
+                        font-size: 15px;
+                        font-weight: 700;
+                        color: #2c3e50;
+                        margin-bottom: 4px;
+                    }
+
+                    .feature-description {
+                        font-size: 13px;
+                        color: #7f8c8d;
+                    }
+                }
+            }
+        }
+    }
+
+    .dots-container {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin: 20px 0;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+        background: #e0e0e0;
+        border-radius: 50%;
+        transition: all 0.3s;
+    }
+
+    .dot.active {
+        background: #667eea;
+        width: 24px;
+        border-radius: 5px;
+    }
+
+    .buttons-container {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .btn {
+        flex: 1;
+        padding: 16px;
+        border-radius: 15px;
+        border: none;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .btn:active {
+        transform: scale(0.98);
+    }
+
+    .btn-secondary {
+        background: #ecf0f1;
+        color: #7f8c8d;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}

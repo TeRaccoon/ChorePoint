@@ -113,3 +113,25 @@
         transition: box-shadow 0.5s ease;
     }
 }
+
+.warning-container {
+    height: 100vh;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #00000082;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .warning-content {
+        width: 70%;
+        background-color: lightblue;
+        border-radius: 5px;
+        padding: 18px;
+        font-size: 22px;
+
+        .warning-message {}
+    }
+}

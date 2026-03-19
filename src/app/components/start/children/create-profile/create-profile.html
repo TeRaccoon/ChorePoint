@@ -1,0 +1,32 @@
+<div class="slide">
+  <div class="slide-content">
+    <div class="illustration">{{ selectedAvatar }}</div>
+    <div class="slide-title">Create Your Profile</div>
+    <div class="slide-description">Let's set up your account!</div>
+
+    <div class="input-container">
+      <input type="text" class="input-field" placeholder="What's your name?" value="Zach" />
+      <input type="number" class="input-field" placeholder="How old are you?" value="10" />
+    </div>
+
+    <div class="slide-description" style="margin-bottom: 10px">Choose your avatar:</div>
+    <div class="avatar-selector">
+      @for (avatar of avatars; track avatar) {
+        <div (click)="selectAvatar(avatar)" class="avatar-option">{{ avatar }}</div>
+      }
+    </div>
+  </div>
+
+  <div>
+    <div class="dots-container">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot active"></div>
+      <div class="dot"></div>
+    </div>
+    <div class="buttons-container">
+      <button class="btn btn-secondary" (click)="prevSlide()">Back</button>
+      <button class="btn btn-primary" (click)="nextSlide()">Next</button>
+    </div>
+  </div>
+</div>

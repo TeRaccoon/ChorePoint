@@ -1,0 +1,9 @@
+export type User = {
+  id: number;
+  name: string;
+  age: number;
+  avatar: string;
+  totalPoints: number;
+  pointsToday: number;
+  dayStreak: number;
+};

@@ -1,0 +1,76 @@
+@if (chore$ | async; as chore) {
+  <div class="header">
+    <div class="back-button" (click)="backToDashboard()">
+      <fa-icon [icon]="backArrow"></fa-icon>
+    </div>
+    <div class="chore-icon-large">{{ chore.icon }}</div>
+    <div class="chore-title">{{ chore.name }}</div>
+    <div class="chore-subtitle">{{ chore.timeOfDay }}</div>
+  </div>
+
+  <div class="points-banner">
+    <div class="points-label">You'll Earn</div>
+    <div class="points-value">+{{ chore.points }} Points</div>
+  </div>
+
+  <div class="content">
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon">⏱️</div>
+        <div class="info-value">5 min</div>
+        <div class="info-label">Estimated Time</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🎯</div>
+        <div class="info-value">{{ Difficulty[chore.difficulty] }}</div>
+        <div class="info-label">Difficulty</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">📅</div>
+        <div class="info-value">{{ Frequency[chore.frequency] }}</div>
+        <div class="info-label">Frequency</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">✅</div>
+        <div class="info-value">{{ chore.completionCount }}</div>
+        <div class="info-label">Times Done</div>
+      </div>
+    </div>
+    @if (chore.description) {
+      <div class="section">
+        <div class="section-title">What to Do</div>
+        <div class="description-box">{{ chore.description }}</div>
+      </div>
+    }
+
+    <!-- <div class="section">
+      <div class="section-title">Proof of Completion (Optional)</div>
+      <div class="photo-upload">
+        <div class="upload-icon">📸</div>
+        <div class="upload-text">Take a photo of your completed chore</div>
+      </div>
+    </div> -->
+
+    <div class="action-buttons">
+      <button class="btn btn-secondary" (click)="backToDashboard()">Save for Later</button>
+      <button [class]="getActionButtonStyles()" class="btn" (click)="markComplete()">
+        Mark Complete!
+      </button>
+    </div>
+  </div>
+} @else if (this.error) {
+  <div class="error-container">
+    <div class="error-header">
+      <button class="back-button" (click)="backToDashboard()">
+        <fa-icon [icon]="backArrow"></fa-icon>
+        Back
+      </button>
+    </div>
+    <div class="error-message">
+      <div class="error-icon">⚠️</div>
+      <div class="error-text">{{ this.error }}</div>
+    </div>
+  </div>
+} @else {
+  <app-loading-screen />
+}

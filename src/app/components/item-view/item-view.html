@@ -26,11 +26,13 @@
 </div>
 @if (warningVisible) {
   <div class="warning-container">
-    <div class="warning-header">
-      <fa-icon />
-    </div>
-    <div class="warning-message">
-      <p>You do not have enough points to purchase this item!</p>
+    <div class="warning-content">
+      <div class="warning-header">
+        <fa-icon [icon]="xIcon" />
+      </div>
+      <div class="warning-message">
+        <p>You do not have enough points to purchase this item!</p>
+      </div>
     </div>
   </div>
 }

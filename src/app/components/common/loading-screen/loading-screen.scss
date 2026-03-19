@@ -1,0 +1,77 @@
+.loading-overlay {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 16px;
+    border-radius: 15px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+/* Spinner */
+.bubble-spinner {
+    display: flex;
+    gap: 12px;
+
+    span {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        animation: bounce 1.4s infinite ease-in-out both;
+    }
+
+    span:nth-child(1) {
+        background: #667eea;
+        animation-delay: -0.32s;
+    }
+
+    span:nth-child(2) {
+        background: #7a66ea;
+        animation-delay: -0.16s;
+    }
+
+    span:nth-child(3) {
+        background: #9066ea;
+    }
+}
+
+.loading-text {
+    margin-top: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #555;
+}
+
+@keyframes bounce {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0.6);
+        opacity: 0.6;
+    }
+
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
