@@ -21,8 +21,4 @@ export class ChoreService {
   getAll() {
     return this.http.get<Chore[]>(this.baseUrl);
   }
-
-  completeChore(id: number) {
-    return this.http.post(`${this.baseUrl}/${id}/complete`, {});
-  }
 }

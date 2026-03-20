@@ -1,16 +1,16 @@
-@if (chore$ | async; as chore) {
+@if (vm$ | async; as vm) {
   <div class="header">
     <div class="back-button" (click)="backToDashboard()">
       <fa-icon [icon]="backArrow"></fa-icon>
     </div>
-    <div class="chore-icon-large">{{ chore.icon }}</div>
-    <div class="chore-title">{{ chore.name }}</div>
-    <div class="chore-subtitle">{{ chore.timeOfDay }}</div>
+    <div class="chore-icon-large">{{ vm.chore?.icon }}</div>
+    <div class="chore-title">{{ vm.chore?.name }}</div>
+    <div class="chore-subtitle">{{ vm.chore?.timeOfDay }}</div>
   </div>
 
   <div class="points-banner">
     <div class="points-label">You'll Earn</div>
-    <div class="points-value">+{{ chore.points }} Points</div>
+    <div class="points-value">+{{ vm.chore?.points }} Points</div>
   </div>
 
   <div class="content">
@@ -22,24 +22,24 @@
       </div>
       <div class="info-card">
         <div class="info-icon">🎯</div>
-        <div class="info-value">{{ Difficulty[chore.difficulty] }}</div>
+        <div class="info-value">{{ Difficulty[vm.chore!.difficulty] }}</div>
         <div class="info-label">Difficulty</div>
       </div>
       <div class="info-card">
         <div class="info-icon">📅</div>
-        <div class="info-value">{{ Frequency[chore.frequency] }}</div>
+        <div class="info-value">{{ Frequency[vm.chore!.frequency] }}</div>
         <div class="info-label">Frequency</div>
       </div>
       <div class="info-card">
         <div class="info-icon">✅</div>
-        <div class="info-value">{{ chore.completionCount }}</div>
+        <div class="info-value">{{ vm.chore!.completionCount }}</div>
         <div class="info-label">Times Done</div>
       </div>
     </div>
-    @if (chore.description) {
+    @if (vm.chore?.description) {
       <div class="section">
         <div class="section-title">What to Do</div>
-        <div class="description-box">{{ chore.description }}</div>
+        <div class="description-box">{{ vm.chore!.description }}</div>
       </div>
     }
 
@@ -53,8 +53,12 @@
 
     <div class="action-buttons">
       <button class="btn btn-secondary" (click)="backToDashboard()">Save for Later</button>
-      <button [class]="getActionButtonStyles()" class="btn" (click)="markComplete()">
-        Mark Complete!
+      <button
+        [class]="getActionButtonStyles(vm.choreSubmission?.approvalStatus)"
+        class="btn"
+        (click)="markComplete()"
+      >
+        {{ getActionButtonText(vm.choreSubmission?.approvalStatus) }}
       </button>
     </div>
   </div>

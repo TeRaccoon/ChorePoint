@@ -3,7 +3,17 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowLeft, faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { catchError, Observable, of, timeout } from 'rxjs';
+import {
+  catchError,
+  combineLatest,
+  map,
+  Observable,
+  of,
+  startWith,
+  Subject,
+  switchMap,
+} from 'rxjs';
+import { ChoreSubmissionService } from '../../services/chore-submission.service';
 import { ChoreService } from '../../services/chore.service';
 import { ApprovalStatus, Chore, Difficulty, Frequency } from '../../types/chore';
 import { ChoreSubmission } from '../../types/chore-submission';
@@ -16,8 +26,12 @@ import { LoadingScreen } from '../common/loading-screen/loading-screen';
   styleUrl: './chore-details.scss',
 })
 export class ChoreDetails {
-  chore$!: Observable<Chore | null>;
-  choreSubmission: ChoreSubmission | null = null;
+  private refresh$ = new Subject<void>();
+
+  vm$!: Observable<{
+    chore: Chore | null;
+    choreSubmission: ChoreSubmission | null;
+  }>;
 
   error: string | null = null;
 
@@ -29,6 +43,7 @@ export class ChoreDetails {
 
   constructor(
     private choreService: ChoreService,
+    private choreSubmissionService: ChoreSubmissionService,
     private route: ActivatedRoute,
     private router: Router,
   ) {}
@@ -48,17 +63,19 @@ export class ChoreDetails {
   }
 
   private loadChore(id: number) {
-    this.chore$ = this.choreService.getById(id).pipe(
-      timeout(5000),
+    this.vm$ = this.refresh$.pipe(
+      startWith(void 0), // run once on load
+      switchMap(() =>
+        combineLatest([this.choreService.getById(id), this.choreSubmissionService.getCurrent(1)]),
+      ),
+      map(([chore, choreSubmission]) => ({ chore, choreSubmission })),
       catchError((error) => {
         if (error.name === 'TimeoutError') {
-          console.error('Request timed out while fetching chore details.');
-          this.error = 'Request timed out. Please try again later.';
+          console.error('Request timed out');
         } else {
-          console.error('Error fetching chore details:', error);
-          this.error = 'Failed to load chore details. Please try again later.';
+          console.error('Error loading chore details:', error);
         }
-        return of(null);
+        return of({ chore: null, choreSubmission: null });
       }),
     );
   }
@@ -67,12 +84,19 @@ export class ChoreDetails {
     this.router.navigate(['/dashboard']);
   }
 
-  async markComplete() {
-    // const response = await this.api.processPost(`Chore/complete/${this.choreId}`, {});
+  markComplete() {
+    this.choreSubmissionService.completeChore(this.getChoreIdFromRoute()!).subscribe({
+      next: () => {
+        this.refresh$.next();
+      },
+      error: (err) => {
+        console.error('Failed to complete chore', err);
+      },
+    });
   }
 
-  getActionButtonStyles() {
-    switch (this.choreSubmission?.approvalStatus) {
+  getActionButtonStyles(status: ApprovalStatus | undefined): string {
+    switch (status) {
       case ApprovalStatus.Approved:
         return 'btn-success';
       case ApprovalStatus.Pending:
@@ -83,6 +107,21 @@ export class ChoreDetails {
         return 'btn-primary';
       default:
         return 'btn-primary';
+    }
+  }
+
+  getActionButtonText(status: ApprovalStatus | undefined): string {
+    switch (status) {
+      case ApprovalStatus.Approved:
+        return 'Chore Complete!';
+      case ApprovalStatus.Pending:
+        return 'Pending Approval';
+      case ApprovalStatus.Rejected:
+        return 'Rejected';
+      case ApprovalStatus.Incomplete:
+        return 'Mark Complete!';
+      default:
+        return 'Mark Complete!';
     }
   }
 }

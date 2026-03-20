@@ -69,6 +69,19 @@
 
 .content {
     padding: 25px 20px;
+
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 25px;
+
+        .btn-success {
+            cursor: not-allowed;
+            opacity: 0.6;
+            background: #28a745;
+            color: #fff;
+        }
+    }
 }
 
 .info-grid {
@@ -231,12 +244,6 @@
     font-size: 14px;
     color: #7f8c8d;
     font-weight: 600;
-}
-
-.action-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 25px;
 }
 
 .btn {
