@@ -1,0 +1,53 @@
+import { Component, computed, inject, signal } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
+
+@Component({
+  selector: 'app-login',
+  imports: [ReactiveFormsModule],
+  templateUrl: './login.html',
+  styleUrl: './login.scss',
+})
+export class Login {
+  private authService = inject(AuthService);
+  private fb = inject(FormBuilder);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
+  loading = signal(false);
+  error = signal<string | null>(null);
+
+  form = this.fb.nonNullable.group({
+    email: ['', { validators: [Validators.required, Validators.email], updateOn: 'blur' }],
+    password: ['', { validators: [Validators.required], updateOn: 'blur' }],
+  });
+
+  formInvalid = signal(this.form.invalid);
+  formDisabled = computed(() => this.loading() || this.formInvalid());
+
+  submit() {
+    console.log(this.form);
+    console.log(this.loading());
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    this.loading.set(true);
+    this.error.set(null);
+
+    const { email, password } = this.form.getRawValue();
+
+    this.authService.login({ email, password }).subscribe({
+      next: () => {
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
+        this.router.navigateByUrl(returnUrl);
+      },
+      error: (err) => {
+        this.error.set(err.message || 'Login failed. Please try again.');
+        this.loading.set(false);
+      },
+    });
+  }
+}
