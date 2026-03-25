@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 import { CreateProfile } from './children/create-profile/create-profile';
 import { GetStarted } from './children/get-started/get-started';
 import { HowItWorks } from './children/how-it-works/how-it-works';
@@ -12,16 +13,23 @@ import { Welcome } from './children/welcome/welcome';
   styleUrl: './start.scss',
 })
 export class Start {
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
   slide = 1;
   totalSlides = 4;
 
-  constructor(private router: Router) {}
+  ngOnInit() {
+    if (this.authService.hasSeenOnboarding()) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
 
   nextSlide() {
     if (this.slide < this.totalSlides) {
       this.slide++;
     } else {
-      this.router.navigate(['/dashboard']);
+      this.finishOnboarding();
     }
   }
 
@@ -30,6 +38,11 @@ export class Start {
   }
 
   skipTutorial() {
+    this.finishOnboarding();
+  }
+
+  finishOnboarding() {
+    this.authService.setOnboardingSeen();
     this.router.navigate(['/dashboard']);
   }
 }
