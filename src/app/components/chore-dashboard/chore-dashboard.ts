@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { ApiService } from '../../services/api.service';
+import { ApiService } from '../../core/services/api.service';
 import { Chore, Difficulty, Frequency } from '../../types/chore';
 import { User } from '../../types/user';
 import { LoadingScreen } from '../common/loading-screen/loading-screen';
@@ -14,6 +14,8 @@ import { LoadingScreen } from '../common/loading-screen/loading-screen';
   styleUrl: './chore-dashboard.scss',
 })
 export class ChoreDashboard {
+  private apiService = inject(ApiService);
+
   user: User | null = null;
   chores: Chore[] = [];
 
@@ -22,8 +24,6 @@ export class ChoreDashboard {
 
   loading = true;
   spinner = faSpinner;
-
-  constructor(private apiService: ApiService) {}
 
   ngOnInit() {
     this.loadUser().then(() => {

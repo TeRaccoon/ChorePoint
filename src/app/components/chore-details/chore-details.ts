@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowLeft, faSpinner } from '@fortawesome/free-solid-svg-icons';
@@ -13,8 +13,8 @@ import {
   Subject,
   switchMap,
 } from 'rxjs';
-import { ChoreSubmissionService } from '../../services/chore-submission.service';
-import { ChoreService } from '../../services/chore.service';
+import { ChoreSubmissionService } from '../../core/services/chore-submission.service';
+import { ChoreService } from '../../core/services/chore.service';
 import { ApprovalStatus, Chore, Difficulty, Frequency } from '../../types/chore';
 import { ChoreSubmission } from '../../types/chore-submission';
 import { LoadingScreen } from '../common/loading-screen/loading-screen';
@@ -26,6 +26,11 @@ import { LoadingScreen } from '../common/loading-screen/loading-screen';
   styleUrl: './chore-details.scss',
 })
 export class ChoreDetails {
+  private choreService = inject(ChoreService);
+  private choreSubmissionService = inject(ChoreSubmissionService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
   private refresh$ = new Subject<void>();
 
   vm$!: Observable<{
@@ -40,13 +45,6 @@ export class ChoreDetails {
 
   Frequency = Frequency;
   Difficulty = Difficulty;
-
-  constructor(
-    private choreService: ChoreService,
-    private choreSubmissionService: ChoreSubmissionService,
-    private route: ActivatedRoute,
-    private router: Router,
-  ) {}
 
   ngOnInit() {
     this.initChore();
@@ -64,7 +62,7 @@ export class ChoreDetails {
 
   private loadChore(id: number) {
     this.vm$ = this.refresh$.pipe(
-      startWith(void 0), // run once on load
+      startWith(void 0),
       switchMap(() =>
         combineLatest([this.choreService.getById(id), this.choreSubmissionService.getCurrent(1)]),
       ),
@@ -89,7 +87,7 @@ export class ChoreDetails {
       next: () => {
         this.refresh$.next();
       },
-      error: (err) => {
+      error: (err: string) => {
         console.error('Failed to complete chore', err);
       },
     });
