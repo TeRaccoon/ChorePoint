@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   async processGet(query: string): Promise<any> {
     const url = new URL('https://localhost:7087/api/' + query);

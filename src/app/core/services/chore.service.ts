@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { catchError } from 'rxjs/internal/operators/catchError';
-import { Chore } from '../types/chore';
+import { Chore } from '../../types/chore';
 
 @Injectable({ providedIn: 'root' })
 export class ChoreService {
-  private baseUrl = 'https://localhost:7087/api/chore';
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
+  private baseUrl = 'https://localhost:7087/api/chore';
 
   getById(id: number) {
     return this.http.get<Chore>(`${this.baseUrl}/${id}`).pipe(
