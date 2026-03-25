@@ -18,35 +18,33 @@
         font-size: 20px;
         color: white;
     }
-}
 
+    .chore-icon-large {
+        width: 100px;
+        height: 100px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 50px;
+        margin: 0 auto 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
 
+    .chore-title {
+        font-size: 28px;
+        font-weight: 800;
+        color: white;
+        text-align: center;
+        margin-bottom: 10px;
+    }
 
-.chore-icon-large {
-    width: 100px;
-    height: 100px;
-    background: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 50px;
-    margin: 0 auto 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.chore-title {
-    font-size: 28px;
-    font-weight: 800;
-    color: white;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-.chore-subtitle {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.9);
-    text-align: center;
+    .chore-subtitle {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.9);
+        text-align: center;
+    }
 }
 
 .points-banner {
@@ -54,21 +52,53 @@
     padding: 20px;
     text-align: center;
     color: white;
-}
 
-.points-label {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 5px;
-}
+    .points-label {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
 
-.points-value {
-    font-size: 36px;
-    font-weight: 800;
+    .points-value {
+        font-size: 36px;
+        font-weight: 800;
+    }
 }
 
 .content {
     padding: 25px 20px;
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 25px;
+
+        .info-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+
+            .info-icon {
+                font-size: 24px;
+                margin-bottom: 8px;
+            }
+
+            .info-value {
+                font-size: 18px;
+                font-weight: 700;
+                color: #2c3e50;
+                margin-bottom: 4px;
+            }
+
+            .info-label {
+                font-size: 12px;
+                color: #7f8c8d;
+                font-weight: 600;
+            }
+        }
+    }
 
     .action-buttons {
         display: flex;
@@ -82,38 +112,6 @@
             color: #fff;
         }
     }
-}
-
-.info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 25px;
-}
-
-.info-card {
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 12px;
-    text-align: center;
-}
-
-.info-icon {
-    font-size: 24px;
-    margin-bottom: 8px;
-}
-
-.info-value {
-    font-size: 18px;
-    font-weight: 700;
-    color: #2c3e50;
-    margin-bottom: 4px;
-}
-
-.info-label {
-    font-size: 12px;
-    color: #7f8c8d;
-    font-weight: 600;
 }
 
 .section {
