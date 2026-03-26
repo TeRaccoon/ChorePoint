@@ -15,9 +15,11 @@ import {
 } from 'rxjs';
 import { ChoreSubmissionService } from '../../core/services/chore-submission.service';
 import { ChoreService } from '../../core/services/chore.service';
-import { ApprovalStatus, Chore, Difficulty, Frequency } from '../../types/chore';
+import { Chore, Difficulty, Frequency } from '../../types/chore';
 import { ChoreSubmission } from '../../types/chore-submission';
 import { LoadingScreen } from '../common/loading-screen/loading-screen';
+import { APPROVAL_STATUS_CONFIG, DEFAULT_STATUS } from './config';
+import { ActionButton } from './types';
 
 @Component({
   selector: 'app-chore-details',
@@ -34,6 +36,7 @@ export class ChoreDetails {
   private refresh$ = new Subject<void>();
 
   vm$!: Observable<{
+    actionButton: ActionButton;
     chore: Chore | null;
     choreSubmission: ChoreSubmission | null;
   }>;
@@ -66,14 +69,24 @@ export class ChoreDetails {
       switchMap(() =>
         combineLatest([this.choreService.getById(id), this.choreSubmissionService.getCurrent(1)]),
       ),
-      map(([chore, choreSubmission]) => ({ chore, choreSubmission })),
+      map(([chore, choreSubmission]) => {
+        const status = choreSubmission?.approvalStatus;
+
+        const config = status ? (APPROVAL_STATUS_CONFIG[status] ?? DEFAULT_STATUS) : DEFAULT_STATUS;
+
+        return {
+          actionButton: config,
+          chore,
+          choreSubmission,
+        };
+      }),
       catchError((error) => {
         if (error.name === 'TimeoutError') {
           console.error('Request timed out');
         } else {
           console.error('Error loading chore details:', error);
         }
-        return of({ chore: null, choreSubmission: null });
+        return of({ actionButton: DEFAULT_STATUS, chore: null, choreSubmission: null });
       }),
     );
   }
@@ -91,35 +104,5 @@ export class ChoreDetails {
         console.error('Failed to complete chore', err);
       },
     });
-  }
-
-  getActionButtonStyles(status: ApprovalStatus | undefined): string {
-    switch (status) {
-      case ApprovalStatus.Approved:
-        return 'btn-success';
-      case ApprovalStatus.Pending:
-        return 'btn-warning';
-      case ApprovalStatus.Rejected:
-        return 'btn-danger';
-      case ApprovalStatus.Incomplete:
-        return 'btn-primary';
-      default:
-        return 'btn-primary';
-    }
-  }
-
-  getActionButtonText(status: ApprovalStatus | undefined): string {
-    switch (status) {
-      case ApprovalStatus.Approved:
-        return 'Chore Complete!';
-      case ApprovalStatus.Pending:
-        return 'Pending Approval';
-      case ApprovalStatus.Rejected:
-        return 'Rejected';
-      case ApprovalStatus.Incomplete:
-        return 'Mark Complete!';
-      default:
-        return 'Mark Complete!';
-    }
   }
 }

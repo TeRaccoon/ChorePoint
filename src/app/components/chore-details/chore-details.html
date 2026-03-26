@@ -53,12 +53,8 @@
 
     <div class="action-buttons">
       <button class="btn btn-secondary" (click)="backToDashboard()">Save for Later</button>
-      <button
-        [class]="getActionButtonStyles(vm.choreSubmission?.approvalStatus)"
-        class="btn"
-        (click)="markComplete()"
-      >
-        {{ getActionButtonText(vm.choreSubmission?.approvalStatus) }}
+      <button [class]="vm.actionButton.class" class="btn" (click)="markComplete()">
+        {{ vm.actionButton.text }}
       </button>
     </div>
   </div>

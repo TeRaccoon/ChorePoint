@@ -4,3 +4,8 @@ export enum ChoreApprovalStatus {
   Approved = 'Approved',
   Rejected = 'Rejected',
 }
+
+export type ActionButton = {
+  text: string;
+  class: string;
+};
