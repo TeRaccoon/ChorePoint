@@ -1,14 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { FormField } from '../common/form-field/form-field';
 import { LoadingEmoji } from '../common/loading-emoji/loading-emoji';
+import { PasswordInput } from '../common/password-input/password-input';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, LoadingEmoji, FormField],
+  imports: [ReactiveFormsModule, LoadingEmoji, FormField, RouterModule, PasswordInput],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
@@ -58,9 +59,5 @@ export class Login {
         this.loading.set(false);
       },
     });
-  }
-
-  toggleShowPassword() {
-    this.showPassword = !this.showPassword;
   }
 }

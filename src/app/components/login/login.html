@@ -18,14 +18,12 @@
       >
       </app-form-field>
 
-      <app-form-field
+      <app-password-input
         label="Password"
         icon="🔑"
-        type="password"
         placeholder="Your password"
         [control]="form.controls['password']"
-      >
-      </app-form-field>
+      />
 
       <div class="forgot-row">
         <a class="forgot-link">Forgot password?</a>
@@ -55,6 +53,8 @@
       Continue with Google
     </button> -->
 
-    <div class="switch-link">New to ChorePoint? <a>Create an account</a></div>
+    <div class="switch-link">
+      New to ChorePoint? <a [routerLink]="['/create-account']">Create an account</a>
+    </div>
   </div>
 </div>
