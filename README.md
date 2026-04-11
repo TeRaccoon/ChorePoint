@@ -24,6 +24,10 @@ Core authentication and chore management features are complete. UI and gamificat
 
 ## Screenshots
 
+### Create Account
+
+<img width="389" height="866" alt="image" src="https://github.com/user-attachments/assets/d699b2c4-3aba-4c53-a749-b89ec5c109ca" />
+
 ### Login Page
 <img width="388" height="867" alt="image" src="https://github.com/user-attachments/assets/5466595e-d513-4853-97ec-aa4c80f06657" />
 
