@@ -11,8 +11,28 @@ export class AuthService {
 
   private ONBOARDING_KEY = 'hasSeenOnboarding';
 
+  isTokenExpired(token: string): boolean {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.exp * 1000 < Date.now();
+    } catch {
+      return true; // Invalid token is considered expired
+    }
+  }
+
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('authToken');
+    const authToken = localStorage.getItem('authToken');
+
+    if (!authToken) return false;
+
+    const isExpired = this.isTokenExpired(authToken);
+
+    if (isExpired) {
+      localStorage.removeItem('authToken');
+      return false;
+    }
+
+    return true;
   }
 
   hasSeenOnboarding(): boolean {
