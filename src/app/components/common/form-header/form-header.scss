@@ -1,0 +1,41 @@
+    .header {
+        background: linear-gradient(135deg, #87ceeb 0%, #b0d9e8 100%);
+        padding: 28px 24px 36px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+
+        .header-badge {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            background: white;
+            border-radius: 12px;
+            padding: 5px 10px;
+            font-size: 11px;
+            font-weight: 800;
+            color: #2c3e50;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            letter-spacing: 0.3px;
+        }
+
+        .header-logo {
+            font-size: 36px;
+            margin-bottom: 6px;
+        }
+
+        .header-app-name {
+            font-size: 26px;
+            font-weight: 900;
+            color: #2c3e50;
+            letter-spacing: -0.5px;
+        }
+
+        .header-tagline {
+            font-size: 13px;
+            color: #5a7a8a;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+    }
