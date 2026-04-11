@@ -3,7 +3,7 @@ import { ChoreDashboard } from './components/chore-dashboard/chore-dashboard';
 import { ChoreDetails } from './components/chore-details/chore-details';
 import { Login } from './components/login/login';
 import { Start } from './components/start/start';
-import { authGuard } from './core/guards/auth-guard.ts-guard';
+import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },

@@ -34,7 +34,7 @@ export class ChoreDashboard {
   }
 
   async loadUser() {
-    this.user = await this.apiService.processGet('Users/1');
+    this.user = await this.apiService.processGet('Users/me');
   }
 
   async loadChores() {
