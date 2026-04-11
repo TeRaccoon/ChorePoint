@@ -1,11 +1,14 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { FormField } from '../common/form-field/form-field';
+import { LoadingEmoji } from '../common/loading-emoji/loading-emoji';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, LoadingEmoji, FormField],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
@@ -17,6 +20,8 @@ export class Login {
 
   loading = signal(false);
   error = signal<string | null>(null);
+
+  showPassword = false;
 
   form = this.fb.nonNullable.group({
     email: ['', { validators: [Validators.required, Validators.email], updateOn: 'blur' }],
@@ -44,10 +49,18 @@ export class Login {
         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
         this.router.navigateByUrl(returnUrl);
       },
-      error: (err) => {
-        this.error.set(err.message || 'Login failed. Please try again.');
+      error: (err: HttpErrorResponse) => {
+        if (err.status === 401) {
+          this.error.set('Invalid email or password.');
+        } else {
+          this.error.set(err.message || 'Login failed. Please try again.');
+        }
         this.loading.set(false);
       },
     });
+  }
+
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
   }
 }

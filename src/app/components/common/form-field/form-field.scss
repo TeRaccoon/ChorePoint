@@ -1,0 +1,54 @@
+.field-group {
+    margin-bottom: 14px;
+
+    .field-label {
+        font-size: 12px;
+        font-weight: 700;
+        color: #5a7a8a;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+        display: block;
+    }
+
+    .field-wrap {
+        position: relative;
+
+        .field-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            pointer-events: none;
+        }
+
+        .field-input {
+            width: stretch;
+            background: #f4f7f9;
+            border: 2px solid transparent;
+            border-radius: 14px;
+            padding: 13px 14px 13px 42px;
+            font-size: 15px;
+            color: #2c3e50;
+            font-family: inherit;
+            transition:
+                border-color 0.2s,
+                background 0.2s;
+            outline: none;
+        }
+
+        .field-input::placeholder {
+            color: #aab8bf;
+        }
+
+        .field-input:focus {
+            border-color: #87ceeb;
+            background: #eef7fc;
+        }
+
+        .field-input.has-toggle {
+            padding-right: 46px;
+        }
+    }
+}
