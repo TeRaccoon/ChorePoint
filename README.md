@@ -1,59 +1,40 @@
-# ChorePoint
+# ChorePoint 🏆
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.3.
+A gamified full-stack chore management system for families, built to help parents assign, track, and reward household tasks for children.
 
-## Development server
+## Project Status
+🚧 In active development  
+Core authentication and chore management features are complete. UI and gamification features are currently in progress.
 
-To start a local development server, run:
+## Tech Stack
 
-```bash
-ng serve
-```
+- Frontend: Angular
+- Backend: ASP.NET Core Web API
+- Auth: JWT Authentication
+- Database: MySQL
+- Styling: SaSS
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Planned Features
 
-## Code scaffolding
+- Parents can set custom rewards for their children to buy with points
+- Chore streaks are tracked to keep children motivated
+- Parents can add special, one time tasks for bonus points
+- Chores are only completed once the parent approves them
+- A parent account can manage chores for all children in one place
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Screenshots
 
-```bash
-ng generate component component-name
-```
+### Login Page
+<img width="388" height="867" alt="image" src="https://github.com/user-attachments/assets/5466595e-d513-4853-97ec-aa4c80f06657" />
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Dashboard
+<img width="391" height="868" alt="image" src="https://github.com/user-attachments/assets/cee0e561-3804-4593-acb6-4809bbab690e" />
 
-```bash
-ng generate --help
-```
+### Chore Details
+<img width="387" height="867" alt="image" src="https://github.com/user-attachments/assets/38752786-fde0-4637-82aa-70d4b92b6874" />
 
-## Building
+## Architecture
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Angular frontend consuming REST API built with ASP.NET Core
+- Clear separation of concerns using Controller → Service → Repository pattern
+- Stateless backend design with token-based authentication
