@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { tap } from 'rxjs';
+import { CreateAccountRequest } from '../../requests/create-account-request';
 import { LoginRequest } from '../../requests/login-request';
 
 @Injectable({ providedIn: 'root' })
@@ -55,5 +56,9 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('authToken');
+  }
+
+  createAccount(request: CreateAccountRequest) {
+    return this.http.post<void>(`${this.baseUrl}/create-account`, request);
   }
 }

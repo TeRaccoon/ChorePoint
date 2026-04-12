@@ -57,9 +57,15 @@
           I agree to the <a>Terms of Service</a> and <a>Privacy Policy</a>.
         </div>
       </div>
+      <button type="submit" class="btn-primary" [disabled]="loading() || form.invalid">
+        @if (loading()) {
+          Creating Account <app-loading-emoji />
+        } @else {
+          Create Account 🎉
+        }
+      </button>
     </form>
 
-    <button type="submit" class="btn-primary" [disabled]="form.invalid">Create Account 🎉</button>
     <div class="switch-link">Already have an account? <a>Sign in</a></div>
   </div>
 </div>
