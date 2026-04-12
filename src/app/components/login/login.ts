@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
@@ -22,19 +22,12 @@ export class Login {
   loading = signal(false);
   error = signal<string | null>(null);
 
-  showPassword = false;
-
   form = this.fb.nonNullable.group({
     email: ['', { validators: [Validators.required, Validators.email], updateOn: 'blur' }],
     password: ['', { validators: [Validators.required], updateOn: 'blur' }],
   });
 
-  formInvalid = signal(this.form.invalid);
-  formDisabled = computed(() => this.loading() || this.formInvalid());
-
   submit() {
-    console.log(this.form);
-    console.log(this.loading());
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;

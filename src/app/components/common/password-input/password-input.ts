@@ -31,7 +31,6 @@ export class PasswordInput {
   }
 
   calculateStrength(password: string) {
-    console.log('ERE');
     let score = 0;
 
     if (!password) {
