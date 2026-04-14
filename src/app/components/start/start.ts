@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { CreateProfile } from './children/create-profile/create-profile';
 import { GetStarted } from './children/get-started/get-started';
 import { HowItWorks } from './children/how-it-works/how-it-works';

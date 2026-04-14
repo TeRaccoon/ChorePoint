@@ -1,8 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../core/services/auth.service';
+import { getAuthErrorMessage } from '../../auth/auth.error';
+import { AuthService } from '../../auth/auth.service';
+import { AuthError } from '../../auth/auth.types';
 import { FormField } from '../common/form-field/form-field';
 import { LoadingEmoji } from '../common/loading-emoji/loading-emoji';
 import { PasswordInput } from '../common/password-input/password-input';
@@ -43,12 +44,8 @@ export class Login {
         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
         this.router.navigateByUrl(returnUrl);
       },
-      error: (err: HttpErrorResponse) => {
-        if (err.status === 401) {
-          this.error.set('Invalid email or password.');
-        } else {
-          this.error.set(err.message || 'Login failed. Please try again.');
-        }
+      error: (err: AuthError) => {
+        this.error.set(getAuthErrorMessage(err.type));
         this.loading.set(false);
       },
     });

@@ -3,16 +3,7 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowLeft, faSpinner } from '@fortawesome/free-solid-svg-icons';
-import {
-  catchError,
-  combineLatest,
-  map,
-  Observable,
-  of,
-  startWith,
-  Subject,
-  switchMap,
-} from 'rxjs';
+import { catchError, combineLatest, map, merge, Observable, of, Subject, switchMap } from 'rxjs';
 import { ChoreSubmissionService } from '../../core/services/chore-submission.service';
 import { ChoreService } from '../../core/services/chore.service';
 import { Chore, Difficulty, Frequency } from '../../types/chore';
@@ -33,7 +24,7 @@ export class ChoreDetails {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
-  private refresh$ = new Subject<void>();
+  private completeChore$ = new Subject<void>();
 
   vm$!: Observable<{
     actionButton: ActionButton;
@@ -64,8 +55,13 @@ export class ChoreDetails {
   }
 
   private loadChore(id: number) {
-    this.vm$ = this.refresh$.pipe(
-      startWith(void 0),
+    const load$ = of(null);
+
+    const complete$ = this.completeChore$.pipe(
+      switchMap(() => this.choreSubmissionService.completeChore(id)),
+    );
+
+    this.vm$ = merge(load$, complete$).pipe(
       switchMap(() =>
         combineLatest([this.choreService.getById(id), this.choreSubmissionService.getCurrent(1)]),
       ),
@@ -96,13 +92,6 @@ export class ChoreDetails {
   }
 
   markComplete() {
-    this.choreSubmissionService.completeChore(this.getChoreIdFromRoute()!).subscribe({
-      next: () => {
-        this.refresh$.next();
-      },
-      error: (err: string) => {
-        console.error('Failed to complete chore', err);
-      },
-    });
+    this.completeChore$.next();
   }
 }

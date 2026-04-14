@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { tap } from 'rxjs';
-import { CreateAccountRequest } from '../../requests/create-account-request';
-import { LoginRequest } from '../../requests/login-request';
+import { catchError, tap, throwError } from 'rxjs';
+import { CreateAccountRequest } from '../requests/create-account-request';
+import { LoginRequest } from '../requests/login-request';
+import { AUTH_ERROR_MAP } from './auth.error';
+import { AuthError, AuthErrorType } from './auth.types';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -46,10 +48,12 @@ export class AuthService {
 
   login(request: LoginRequest) {
     return this.http.post<{ token: string }>(`${this.baseUrl}/login`, request).pipe(
-      tap({
-        next: (response) => {
-          localStorage.setItem('authToken', response.token);
-        },
+      tap((response) => {
+        localStorage.setItem('authToken', response.token);
+      }),
+      catchError((err: HttpErrorResponse) => {
+        const errorType = AUTH_ERROR_MAP[err.status] ?? AuthErrorType.LoginFailed;
+        return throwError(() => new AuthError(errorType));
       }),
     );
   }

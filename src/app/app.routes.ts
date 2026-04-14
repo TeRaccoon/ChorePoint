@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './auth/auth-guard';
 import { ChoreDashboard } from './components/chore-dashboard/chore-dashboard';
 import { ChoreDetails } from './components/chore-details/chore-details';
 import { CreateAccount } from './components/create-account/create-account';
 import { Login } from './components/login/login';
 import { Start } from './components/start/start';
-import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },

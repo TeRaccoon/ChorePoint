@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { FormField } from '../common/form-field/form-field';
 import { FormHeader } from '../common/form-header/form-header';
 import { LoadingEmoji } from '../common/loading-emoji/loading-emoji';
