@@ -5,15 +5,12 @@ export const AUTH_ERROR_MAP: Record<number, AuthErrorType> = {
   0: AuthErrorType.NetworkError,
 };
 
-export const getAuthErrorMessage = (errorType: AuthErrorType): string => {
-  switch (errorType) {
-    case AuthErrorType.InvalidCredentials:
-      return 'Invalid credentials';
-    case AuthErrorType.NetworkError:
-      return 'Network error';
-    case AuthErrorType.LoginFailed:
-      return 'Login failed';
-    default:
-      return 'An unknown error occurred';
-  }
+export const AUTH_ERROR_MESSAGES: Record<AuthErrorType, string> = {
+  [AuthErrorType.InvalidCredentials]: 'Invalid email or password.',
+  [AuthErrorType.NetworkError]: 'Network error. Please check your connection.',
+  [AuthErrorType.LoginFailed]: 'Login failed. Please try again.',
 };
+
+export function getAuthErrorMessage(type: AuthErrorType): string {
+  return AUTH_ERROR_MESSAGES[type] ?? 'Something went wrong.';
+}

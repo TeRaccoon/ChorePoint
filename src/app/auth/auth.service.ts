@@ -52,8 +52,8 @@ export class AuthService {
         localStorage.setItem('authToken', response.token);
       }),
       catchError((err: HttpErrorResponse) => {
-        const errorType = AUTH_ERROR_MAP[err.status] ?? AuthErrorType.LoginFailed;
-        return throwError(() => new AuthError(errorType));
+        const type = AUTH_ERROR_MAP[err.status] ?? AuthErrorType.LoginFailed;
+        return throwError(() => ({ type }) as AuthError);
       }),
     );
   }

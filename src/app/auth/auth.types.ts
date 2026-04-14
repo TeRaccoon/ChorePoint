@@ -4,8 +4,6 @@ export enum AuthErrorType {
   LoginFailed = 'LOGIN_FAILED',
 }
 
-export class AuthError extends Error {
-  constructor(public type: AuthErrorType) {
-    super(type);
-  }
+export interface AuthError {
+  type: AuthErrorType;
 }
