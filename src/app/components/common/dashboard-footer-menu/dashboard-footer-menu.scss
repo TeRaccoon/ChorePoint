@@ -1,0 +1,31 @@
+.bottom-nav {
+    background: white;
+    border-top: 1px solid #e0e0e0;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-around;
+    position: sticky;
+    bottom: 0;
+
+    .nav-item {
+        text-align: center;
+        cursor: pointer;
+        padding: 5px 15px;
+        border-radius: 12px;
+
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .nav-label {
+            font-size: 11px;
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+    }
+
+    .nav-item.active {
+        background: #e1e1e1;
+    }
+}
