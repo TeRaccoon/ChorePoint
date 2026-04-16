@@ -1,0 +1,122 @@
+@if (vm$ | async; as vm) {
+  <div class="header">
+    <div class="header-top">
+      <div class="page-title">My Kids</div>
+      <div class="add-button" title="Add child">+</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Summary pills -->
+    <div class="kids-summary">
+      <div class="summary-pill">
+        <div class="summary-pill-val">{{ vm.kids.length }}</div>
+        <div class="summary-pill-lbl">Kids</div>
+      </div>
+      <div class="summary-pill">
+        <div class="summary-pill-val">0</div>
+        <div class="summary-pill-lbl">Chores Done</div>
+      </div>
+      <div class="summary-pill">
+        <div class="summary-pill-val">0</div>
+        <div class="summary-pill-lbl">Total Points</div>
+      </div>
+    </div>
+
+    @if (vm.kids.length > 0) {
+      <app-leaderboard [kids]="vm.kids" />
+    }
+
+    <!-- Kid cards -->
+    <div class="section-header">
+      <div class="section-title">Profiles</div>
+      <div class="section-link">Manage all</div>
+    </div>
+
+    <div class="kids-list">
+      @if (vm.kids.length > 0) {
+        <!-- Zach -->
+        <div class="kid-card">
+          <div class="kid-card-top">
+            <div class="kid-avatar avatar-blue">🧒</div>
+            <div class="kid-info">
+              <div class="kid-name">Zach</div>
+              <div class="kid-meta">Age 10 · 4 active chores</div>
+            </div>
+            <div class="kid-points-badge">1,500 ⭐</div>
+          </div>
+          <div class="kid-progress">
+            <div class="progress-label">Weekly goal <span>75% done</span></div>
+            <div class="progress-track">
+              <div class="progress-fill fill-blue" style="width: 75%"></div>
+            </div>
+          </div>
+          <div class="kid-stats">
+            <div class="kid-stat">
+              <div class="kid-stat-val">🔥 3</div>
+              <div class="kid-stat-lbl">Day Streak</div>
+            </div>
+            <div class="kid-stat">
+              <div class="kid-stat-val">85%</div>
+              <div class="kid-stat-lbl">Completion</div>
+            </div>
+            <div class="kid-stat">
+              <div class="kid-stat-val">4</div>
+              <div class="kid-stat-lbl">Badges</div>
+            </div>
+          </div>
+          <div class="kid-actions">
+            <button class="kid-action-btn">📋 Chores</button>
+            <button class="kid-action-btn">🎁 Rewards</button>
+            <button class="kid-action-btn primary">✏️ Edit</button>
+          </div>
+        </div>
+
+        <!-- Emma -->
+        <div class="kid-card">
+          <div class="kid-card-top">
+            <div class="kid-avatar avatar-purple">👧</div>
+            <div class="kid-info">
+              <div class="kid-name">Emma</div>
+              <div class="kid-meta">Age 8 · 3 active chores</div>
+            </div>
+            <div class="kid-points-badge">950 ⭐</div>
+          </div>
+          <div class="kid-progress">
+            <div class="progress-label">Weekly goal <span>50% done</span></div>
+            <div class="progress-track">
+              <div class="progress-fill fill-purple" style="width: 50%"></div>
+            </div>
+          </div>
+          <div class="kid-stats">
+            <div class="kid-stat">
+              <div class="kid-stat-val">🔥 1</div>
+              <div class="kid-stat-lbl">Day Streak</div>
+            </div>
+            <div class="kid-stat">
+              <div class="kid-stat-val">60%</div>
+              <div class="kid-stat-lbl">Completion</div>
+            </div>
+            <div class="kid-stat">
+              <div class="kid-stat-val">2</div>
+              <div class="kid-stat-lbl">Badges</div>
+            </div>
+          </div>
+          <div class="kid-actions">
+            <button class="kid-action-btn">📋 Chores</button>
+            <button class="kid-action-btn">🎁 Rewards</button>
+            <button class="kid-action-btn primary">✏️ Edit</button>
+          </div>
+        </div>
+      }
+
+      <!-- Add child -->
+      <div [routerLink]="'/dashboard/kids/add'" class="add-kid-card">
+        <div class="add-kid-icon">➕</div>
+        <div class="add-kid-text">Add another child</div>
+      </div>
+    </div>
+  </div>
+} @else {
+  <app-loading-screen />
+}

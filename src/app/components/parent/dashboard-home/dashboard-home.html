@@ -1,0 +1,155 @@
+@if (vm$ | async; as vm) {
+  <div class="header">
+    <div class="header-top">
+      <div class="page-title">Parent Dashboard</div>
+      <div class="add-button">+</div>
+    </div>
+
+    @if (vm.kids.length > 0) {
+      <div class="child-selector">
+        @for (kid of vm.kids; track kid.id; let first = $first) {
+          <div class="child-chip" [class]="first ? 'active' : ''">{{ kid.name }}</div>
+        }
+      </div>
+    } @else {
+      <div>
+        <div class="no-kids">Add a child from the kids tab to get started!</div>
+      </div>
+    }
+  </div>
+
+  <div class="content">
+    <!-- Stats Overview -->
+    <div class="stats-overview">
+      <div class="stat-card">
+        <div class="stat-icon">✅</div>
+        <div class="stat-value">12</div>
+        <div class="stat-label">This Week</div>
+        <div class="stat-trend">↑ +25%</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🔥</div>
+        <div class="stat-value">3</div>
+        <div class="stat-label">Current Streak</div>
+      </div>
+      <div class="stat-card full">
+        <div class="stat-icon">📊</div>
+        <div class="stat-value">85%</div>
+        <div class="stat-label">Completion Rate (Last 30 Days)</div>
+        <div class="stat-trend">↑ +10%</div>
+      </div>
+    </div>
+
+    <!-- Pending Approvals -->
+    <div class="section-header">
+      <div class="section-title">Pending Approvals</div>
+      <div class="badge">3</div>
+    </div>
+
+    <div class="pending-list">
+      <div class="pending-item">
+        <div class="pending-header">
+          <div class="pending-info">
+            <div class="pending-chore">Made Bed</div>
+            <div class="pending-meta">Today, 8:30 AM • +250 pts</div>
+          </div>
+          <div class="pending-photo">📸</div>
+        </div>
+        <div class="pending-actions">
+          <button class="action-btn reject-btn">Reject</button>
+          <button class="action-btn approve-btn">Approve ✓</button>
+        </div>
+      </div>
+
+      <div class="pending-item">
+        <div class="pending-header">
+          <div class="pending-info">
+            <div class="pending-chore">Homework Time</div>
+            <div class="pending-meta">Yesterday, 4:15 PM • +400 pts</div>
+          </div>
+          <div class="pending-photo">📸</div>
+        </div>
+        <div class="pending-actions">
+          <button class="action-btn reject-btn">Reject</button>
+          <button class="action-btn approve-btn">Approve ✓</button>
+        </div>
+      </div>
+
+      <div class="pending-item">
+        <div class="pending-header">
+          <div class="pending-info">
+            <div class="pending-chore">Vacuum Living Room</div>
+            <div class="pending-meta">Yesterday, 2:30 PM • +600 pts</div>
+          </div>
+          <div class="pending-photo">📸</div>
+        </div>
+        <div class="pending-actions">
+          <button class="action-btn reject-btn">Reject</button>
+          <button class="action-btn approve-btn">Approve ✓</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="section-header">
+      <div class="section-title">Quick Actions</div>
+    </div>
+
+    <div class="quick-actions">
+      <div class="quick-action-card">
+        <div class="quick-action-icon">➕</div>
+        <div class="quick-action-label">Add Chore</div>
+      </div>
+      <div class="quick-action-card orange">
+        <div class="quick-action-icon">🎁</div>
+        <div class="quick-action-label">Add Reward</div>
+      </div>
+      <div class="quick-action-card green">
+        <div class="quick-action-icon">💰</div>
+        <div class="quick-action-label">Give Bonus</div>
+      </div>
+      <div class="quick-action-card blue">
+        <div class="quick-action-icon">💬</div>
+        <div class="quick-action-label">Send Message</div>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="section-header">
+      <div class="section-title">Recent Activity</div>
+    </div>
+
+    <div class="activity-list">
+      <div class="activity-item">
+        <div class="activity-icon">✅</div>
+        <div class="activity-content">
+          <div class="activity-text">Approved "Made Bed" chore</div>
+          <div class="activity-time">2 hours ago</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon">💰</div>
+        <div class="activity-content">
+          <div class="activity-text">Zach earned 250 points</div>
+          <div class="activity-time">2 hours ago</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon">🎁</div>
+        <div class="activity-content">
+          <div class="activity-text">Zach redeemed Extra Screen Time</div>
+          <div class="activity-time">Yesterday</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div class="activity-icon">🏆</div>
+        <div class="activity-content">
+          <div class="activity-text">Zach unlocked "Week Streak" badge</div>
+          <div class="activity-time">2 days ago</div>
+        </div>
+      </div>
+    </div>
+  </div>
+} @else {
+  <app-loading-screen />
+}
