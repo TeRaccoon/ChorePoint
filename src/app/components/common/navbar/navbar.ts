@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { User } from '../types';
-
 @Component({
   selector: 'app-navbar',
   imports: [],
@@ -8,7 +6,7 @@ import { User } from '../types';
   styleUrl: './navbar.scss',
 })
 export class Navbar {
-  user: User = {
+  user: any = {
     username: 'Zach',
     points: 1500,
   };

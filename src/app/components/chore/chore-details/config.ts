@@ -1,4 +1,4 @@
-import { ApprovalStatus } from '../../types/chore';
+import { ApprovalStatus } from '../../../types/chore';
 import { ActionButton } from './types';
 
 export const APPROVAL_STATUS_CONFIG: Record<ApprovalStatus, ActionButton> = {

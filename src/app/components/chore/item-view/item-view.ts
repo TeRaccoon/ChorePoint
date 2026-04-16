@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faX } from '@fortawesome/free-solid-svg-icons';
-import { ShopItem } from '../types';
 
 @Component({
   selector: 'app-item-view',
@@ -10,7 +9,7 @@ import { ShopItem } from '../types';
   styleUrl: './item-view.scss',
 })
 export class ItemView {
-  @Input() item!: ShopItem;
+  @Input() item!: any;
   @Input() balance = 0;
 
   xIcon = faX;

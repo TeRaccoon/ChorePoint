@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { CardImage } from '../card-image/card-image';
-import { ItemView } from '../item-view/item-view';
-import { ShopItem, User } from '../types';
+import { ItemView } from '../chore/item-view/item-view';
+import { CardImage } from '../common/card-image/card-image';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,12 +9,12 @@ import { ShopItem, User } from '../types';
   styleUrl: './dashboard.scss',
 })
 export class Dashboard {
-  user: User = {
+  user: any = {
     username: 'Zach',
     points: 1500,
   };
 
-  shopItems: ShopItem[] = [
+  shopItems: any[] = [
     {
       name: 'Minecraft DLC',
       cost: 5000,
@@ -34,9 +33,9 @@ export class Dashboard {
   ];
 
   itemViewVisible = false;
-  selectedItem: ShopItem | null = null;
+  selectedItem: any | null = null;
 
-  showItemView(item: ShopItem) {
+  showItemView(item: any) {
     this.itemViewVisible = true;
     this.selectedItem = item;
   }
