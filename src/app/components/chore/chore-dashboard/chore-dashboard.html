@@ -1,0 +1,121 @@
+@if (loading) {
+  <app-loading-screen />
+}
+@if (user && !loading) {
+  <div class="header">
+    <div class="header-top">
+      <div class="welcome">Hi, {{ user.name }}! 👋</div>
+      <div class="profile-icon">{{ user.avatar }}</div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-value">{{ user.totalPoints }}</div>
+        <div class="stat-label">Total Points</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">{{ user.pointsToday }}</div>
+        <div class="stat-label">Today</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value streak-value">🔥 {{ user.dayStreak }}</div>
+        <div class="stat-label">Day Streak</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="featured-reward">
+      <div class="featured-badge">⭐ FEATURED REWARD</div>
+      <div class="featured-icon">🎮</div>
+      <div class="featured-title">Minecraft DLC</div>
+      <div class="featured-progress">
+        {{ user.totalPoints }} / 5,000 points ({{ ((user.totalPoints / 5000) * 100).toFixed(0) }}%)
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-title">Daily Chores</div>
+      <div class="view-all">View All →</div>
+    </div>
+    <div class="chore-list">
+      @for (chore of getDailyChores(); track chore.id) {
+        <div [routerLink]="['/chore', chore.id]" class="chore-item">
+          <div class="chore-icon daily">{{ chore.icon }}</div>
+          <div class="chore-info">
+            <div class="chore-name">{{ chore.name }}</div>
+            <div class="chore-meta">
+              {{ chore.timeOfDay
+              }}<span class="difficulty-badge">{{ Difficulty[chore.difficulty] }}</span>
+            </div>
+          </div>
+          <div class="chore-points">+{{ chore.points }}</div>
+        </div>
+      }
+    </div>
+
+    <div class="section-header">
+      <div class="section-title">Weekly Chores</div>
+      <div class="view-all">View All →</div>
+    </div>
+
+    <div class="chore-list">
+      @for (chore of getWeeklyChores(); track chore.id) {
+        <div class="chore-item">
+          <div class="chore-icon weekly">{{ chore.icon }}</div>
+          <div class="chore-info">
+            <div class="chore-name">{{ chore.name }}</div>
+            <div class="chore-meta">
+              {{ chore.timeOfDay
+              }}<span class="difficulty-badge">{{ Difficulty[chore.difficulty] }}</span>
+            </div>
+          </div>
+          <div class="chore-points">+{{ chore.points }}</div>
+        </div>
+      }
+    </div>
+
+    <div class="section-header">
+      <div class="section-title">Bonus Chores 🎁</div>
+    </div>
+
+    <div class="chore-list">
+      @for (chore of getBonusChores(); track chore.id) {
+        <div class="chore-item">
+          <div class="chore-icon bonus">{{ chore.icon }}</div>
+          <div class="chore-info">
+            <div class="chore-name">{{ chore.name }}</div>
+            <div class="chore-meta">
+              {{ chore.timeOfDay
+              }}<span class="difficulty-badge">{{ Difficulty[chore.difficulty] }}</span>
+            </div>
+          </div>
+          <div class="chore-points">+{{ chore.points }}</div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="nav-item active">
+      <div class="nav-icon">🏠</div>
+      <div class="nav-label">Home</div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">📋</div>
+      <div class="nav-label">Chores</div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">🛒</div>
+      <div class="nav-label">Shop</div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">🏆</div>
+      <div class="nav-label">Rewards</div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">👤</div>
+      <div class="nav-label">Profile</div>
+    </div>
+  </div>
+}

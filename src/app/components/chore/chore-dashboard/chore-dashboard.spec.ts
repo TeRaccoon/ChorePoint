@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CardImage } from './card-image';
+import { ChoreDashboard } from './chore-dashboard';
 
-describe('CardImage', () => {
-  let component: CardImage;
-  let fixture: ComponentFixture<CardImage>;
+describe('ChoreDashboard', () => {
+  let component: ChoreDashboard;
+  let fixture: ComponentFixture<ChoreDashboard>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CardImage]
+      imports: [ChoreDashboard]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CardImage);
+    fixture = TestBed.createComponent(ChoreDashboard);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
