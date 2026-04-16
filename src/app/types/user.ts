@@ -6,4 +6,5 @@ export type User = {
   totalPoints: number;
   pointsToday: number;
   dayStreak: number;
+  parentId: number;
 };
