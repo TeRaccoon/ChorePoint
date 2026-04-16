@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="header">
+    <div class="header-badge">👨‍👩‍👧 Parent Portal</div>
+    <div class="header-logo">🏆</div>
+    <div class="header-app-name">ChorePoint</div>
+    <div class="header-tagline">Manage your family's chores</div>
+  </div>
+  <div class="auth-card">
+    <div class="auth-title">Welcome back!</div>
+    <div class="auth-subtitle">Sign in to manage your family's chores</div>
+    <form [formGroup]="form" (submit)="submit()">
+      <app-form-field
+        label="Email Address"
+        icon="📧"
+        type="email"
+        placeholder="you@example.com"
+        [control]="form.controls['email']"
+      >
+      </app-form-field>
+
+      <app-password-input
+        label="Password"
+        icon="🔑"
+        placeholder="Your password"
+        [control]="form.controls['password']"
+      />
+
+      <div class="forgot-row">
+        <a class="forgot-link">Forgot password?</a>
+      </div>
+
+      @if (error()) {
+        <div class="error-banner">{{ error() }}</div>
+      }
+
+      <button type="submit" class="btn-primary" [disabled]="loading() || form.invalid">
+        @if (loading()) {
+          Signing in <app-loading-emoji />
+        } @else {
+          Sign In
+        }
+      </button>
+    </form>
+
+    <!-- <div class="btn-divider">
+      <div class="btn-divider-line"></div>
+      <div class="btn-divider-text">or</div>
+      <div class="btn-divider-line"></div>
+    </div>
+
+    <button class="btn-google">
+      <div class="google-g">G</div>
+      Continue with Google
+    </button> -->
+
+    <div class="switch-link">
+      New to ChorePoint? <a [routerLink]="['/create-account']">Create an account</a>
+    </div>
+  </div>
+</div>
