@@ -1,15 +1,15 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './auth/auth-guard';
-import { CreateAccount } from './components/auth/create-account/create-account';
-import { Login } from './components/auth/login/login';
-import { ChoreDetails } from './components/chore/chore-details/chore-details';
-import { ChoreSettings } from './components/parent/chore-settings/chore-settings';
-import { DashboardHome } from './components/parent/dashboard-home/dashboard-home';
-import { DashboardLayout } from './components/parent/dashboard-layout/dashboard-layout';
-import { KidsSettings } from './components/parent/kids-settings/kids-settings';
-import { ParentSettings } from './components/parent/parent-settings/parent-settings';
-import { CreateProfile } from './components/start/children/create-profile/create-profile';
-import { Start } from './components/start/start';
+import { authGuard } from './features/auth/guards/auth-guard';
+import { CreateAccount } from './features/auth/pages/create-account/create-account';
+import { Login } from './features/auth/pages/login/login';
+import { ChoreDetails } from './features/chores/pages/chore-details/chore-details';
+import { ChoreSettings } from './features/parents/chore-settings/chore-settings';
+import { DashboardLayout } from './features/parents/dashboard-layout/dashboard-layout';
+import { DashboardHome } from './features/parents/pages/dashboard-home/dashboard-home';
+import { KidsSettings } from './features/parents/pages/kids-settings/kids-settings';
+import { ParentSettings } from './features/parents/pages/parent-settings/parent-settings';
+import { CreateProfile } from './features/start/pages/create-profile/create-profile';
+import { Start } from './features/start/pages/start/start';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },

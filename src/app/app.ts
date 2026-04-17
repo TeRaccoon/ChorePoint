@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { PhoneFrame } from './components/phone-frame/phone-frame';
-import { Welcome } from './components/start/children/welcome/welcome';
+import { Welcome } from './features/start/pages/welcome/welcome';
+import { PhoneFrame } from './layout/phone-frame/phone-frame';
 
 @Component({
   selector: 'app-root',
