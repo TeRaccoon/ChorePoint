@@ -7,8 +7,14 @@
 
     @if (vm.kids.length > 0) {
       <div class="child-selector">
-        @for (kid of vm.kids; track kid.id; let first = $first) {
-          <div class="child-chip" [class]="first ? 'active' : ''">{{ kid.name }}</div>
+        @for (kid of vm.kids; track kid.id) {
+          <div
+            (click)="selectKid(kid)"
+            class="child-chip"
+            [class]="kid.id === vm.selectedKid?.id ? 'active' : ''"
+          >
+            {{ kid.name }}
+          </div>
         }
       </div>
     } @else {
@@ -23,20 +29,20 @@
     <div class="stats-overview">
       <div class="stat-card">
         <div class="stat-icon">✅</div>
-        <div class="stat-value">12</div>
+        <div class="stat-value">{{ vm.stats?.completedThisWeek }}</div>
         <div class="stat-label">This Week</div>
         <div class="stat-trend">↑ +25%</div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">🔥</div>
-        <div class="stat-value">3</div>
+        <div class="stat-value">{{ vm.selectedKid?.dayStreak }}</div>
         <div class="stat-label">Current Streak</div>
       </div>
       <div class="stat-card full">
         <div class="stat-icon">📊</div>
-        <div class="stat-value">85%</div>
+        <div class="stat-value">{{ vm.stats?.approvalRate }}%</div>
         <div class="stat-label">Completion Rate (Last 30 Days)</div>
-        <div class="stat-trend">↑ +10%</div>
+        <div class="stat-trend">↑ +0%</div>
       </div>
     </div>
 
