@@ -1,0 +1,265 @@
+.sheet-header {
+    padding: 14px 20px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0;
+
+    .sheet-title {
+        font-size: 20px;
+        font-weight: 800;
+        color: #2c3e50;
+    }
+
+    .sheet-close {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        cursor: pointer;
+        font-weight: 700;
+        color: #7f8c8d;
+    }
+}
+
+.sheet-content {
+    padding: 18px 20px 24px;
+    overflow-y: auto;
+    flex: 1;
+
+    .form-group {
+        margin-bottom: 18px;
+
+        .form-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #95a5a6;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-input {
+            width: 100%;
+            background: #f4f7f9;
+            box-sizing: border-box;
+            border: 2px solid transparent;
+            border-radius: 14px;
+            padding: 13px 14px;
+            font-size: 15px;
+            color: #2c3e50;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: #87CEEB;
+            background: #eef7fc;
+        }
+
+        .form-input::placeholder {
+            color: #bdc3c7;
+        }
+
+        .form-input.filled {
+            border-color: #87CEEB;
+            background: #eef7fc;
+        }
+
+        .emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+        }
+
+        .emoji-opt {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            background: #f4f7f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.15s;
+        }
+
+        .emoji-opt.selected {
+            border-color: #2c3e50;
+            background: #e8ecf0;
+        }
+
+        .assign-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+
+            .assign-chip {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 14px;
+                border-radius: 14px;
+                border: 2px solid #e0e0e0;
+                cursor: pointer;
+                transition: all 0.15s;
+
+                .assign-avatar {
+                    width: 28px;
+                    height: 28px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 14px;
+                }
+
+                .assign-name {
+                    font-size: 14px;
+                    font-weight: 700;
+                    color: #2c3e50;
+                }
+            }
+
+            .assign-chip.selected {
+                border-color: #2c3e50;
+                background: #eef0f2;
+            }
+        }
+
+        .freq-row {
+            display: flex;
+            gap: 8px;
+
+            .freq-opt {
+                flex: 1;
+                padding: 10px 6px;
+                border-radius: 12px;
+                border: 2px solid #e0e0e0;
+                background: white;
+                font-size: 13px;
+                font-weight: 700;
+                text-align: center;
+                cursor: pointer;
+                transition: all 0.15s;
+                color: #7f8c8d;
+            }
+
+            .freq-opt.selected {
+                border-color: #2c3e50;
+                background: #2c3e50;
+                color: white;
+            }
+        }
+
+        .pts-stepper {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #f4f7f9;
+            border-radius: 14px;
+            padding: 10px 16px;
+
+            .stepper-btn {
+                width: 34px;
+                height: 34px;
+                border-radius: 10px;
+                border: none;
+                background: white;
+                font-size: 20px;
+                font-weight: 700;
+                color: #2c3e50;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+                font-family: inherit;
+                flex-shrink: 0;
+            }
+
+            .pts-val {
+                flex: 1;
+                text-align: center;
+                font-size: 24px;
+                font-weight: 800;
+                color: #f39c12;
+            }
+
+            .pts-label {
+                font-size: 13px;
+                font-weight: 700;
+                color: #95a5a6;
+            }
+        }
+
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f4f7f9;
+            border-radius: 14px;
+            padding: 14px 16px;
+
+            .toggle-row-title {
+                font-size: 15px;
+                font-weight: 700;
+                color: #2c3e50;
+            }
+
+            .toggle-row-sub {
+                font-size: 12px;
+                color: #95a5a6;
+                margin-top: 2px;
+            }
+
+            .toggle {
+                width: 44px;
+                height: 24px;
+                border-radius: 12px;
+                background: #27ae60;
+                position: relative;
+                cursor: pointer;
+                flex-shrink: 0;
+            }
+
+            .toggle-knob {
+                position: absolute;
+                top: 3px;
+                left: 23px;
+                width: 18px;
+                height: 18px;
+                border-radius: 50%;
+                background: white;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+            }
+        }
+    }
+
+    .btn-save {
+        width: 100%;
+        background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+        color: white;
+        border: none;
+        padding: 16px;
+        border-radius: 16px;
+        font-size: 17px;
+        font-weight: 800;
+        cursor: pointer;
+        box-shadow: 0 4px 16px rgba(39, 174, 96, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-family: inherit;
+        margin-top: 6px;
+    }
+}
