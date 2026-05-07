@@ -1,152 +1,145 @@
-<div class="sheet-header">
-  <div class="sheet-title">➕ Add New Chore</div>
-  <div class="sheet-close">✕</div>
-</div>
-
-<div class="sheet-content">
-  <!-- Chore name -->
-  <div class="form-group">
-    <label class="form-label">Chore Name</label>
-    <input
-      class="form-input filled"
-      type="text"
-      placeholder="e.g. Tidy Bedroom"
-      value="Vacuum Living Room"
-    />
+@if (vm$ | async; as vm) {
+  <div class="sheet-header">
+    <div class="sheet-title">➕ Add New Chore</div>
+    <div class="sheet-close">✕</div>
   </div>
 
-  <!-- Emoji picker -->
-  <div class="form-group">
-    <label class="form-label">Pick an Icon</label>
-    <div class="emoji-grid">
-      <div class="emoji-opt">🛏️</div>
-      <div class="emoji-opt">🧹</div>
-      <div class="emoji-opt selected">🧽</div>
-      <div class="emoji-opt">🍽️</div>
-      <div class="emoji-opt">🗑️</div>
-      <div class="emoji-opt">🐕</div>
-      <div class="emoji-opt">📚</div>
-      <div class="emoji-opt">🌱</div>
-      <div class="emoji-opt">🦷</div>
-      <div class="emoji-opt">👕</div>
-      <div class="emoji-opt">🛁</div>
-      <div class="emoji-opt">⭐</div>
-    </div>
-  </div>
-
-  <!-- Assign to -->
-  <div class="form-group">
-    <label class="form-label">Assign To</label>
-    <div class="assign-row">
-      <div class="assign-chip selected">
-        <div
-          class="assign-avatar avatar-blue"
-          style="background: linear-gradient(135deg, #87ceeb, #5aafd4)"
-        >
-          🧒
-        </div>
-        <div class="assign-name">Zach</div>
+  <div class="sheet-content">
+    <form [formGroup]="form" (submit)="submit()">
+      <!-- Chore name -->
+      <div class="form-group">
+        <label class="form-label">Chore Name</label>
+        <input
+          class="form-input filled"
+          type="text"
+          placeholder="e.g. Tidy Bedroom"
+          formControlName="name"
+        />
       </div>
-      <div class="assign-chip">
-        <div class="assign-avatar" style="background: linear-gradient(135deg, #a78bfa, #764ba2)">
-          👧
+
+      <!-- Emoji picker -->
+      <div class="form-group">
+        <label class="form-label">Pick an Icon</label>
+        <div class="emoji-grid">
+          @for (emoji of choreEmojis; track emoji) {
+            <div
+              class="emoji-opt"
+              [class.selected]="form.get('icon')?.value === emoji"
+              (click)="form.patchValue({ icon: emoji })"
+            >
+              {{ emoji }}
+            </div>
+          }
         </div>
-        <div class="assign-name">Emma</div>
       </div>
-      <div class="assign-chip">
-        <div class="assign-avatar" style="background: #ecf0f1; font-size: 14px; color: #7f8c8d">
-          +
+
+      <!-- Assign to -->
+      <div class="form-group">
+        <label class="form-label">Assign To</label>
+        <div class="assign-row">
+          @for (kid of vm.kids; track kid.id) {
+            <div
+              class="assign-chip"
+              [class.selected]="form.get('kidId')?.value === kid.id"
+              (click)="form.patchValue({ kidId: kid.id })"
+            >
+              <div
+                class="assign-avatar avatar-blue"
+                style="background: linear-gradient(135deg, #87ceeb, #5aafd4)"
+              >
+                {{ kid.avatar }}
+              </div>
+              <div class="assign-name">{{ kid.name }}</div>
+            </div>
+          }
+          <div
+            class="assign-chip"
+            [class.selected]="form.value.kidId === -1"
+            (click)="form.patchValue({ kidId: -1 })"
+          >
+            <div
+              class="assign-avatar avatar-blue"
+              style="background: linear-gradient(135deg, #87ceeb, #5aafd4)"
+            >
+              ➕
+            </div>
+            <div class="assign-name">All</div>
+          </div>
         </div>
-        <div class="assign-name" style="color: #7f8c8d">Both</div>
       </div>
-    </div>
-  </div>
 
-  <!-- Frequency -->
-  <div class="form-group">
-    <label class="form-label">How Often?</label>
-    <div class="freq-row">
-      <div class="freq-opt">Daily</div>
-      <div class="freq-opt selected">Weekly</div>
-      <div class="freq-opt">One-off</div>
-    </div>
-  </div>
+      <!-- Frequency -->
+      <div class="form-group">
+        <label class="form-label">How Often?</label>
+        <div class="freq-row">
+          @for (frequency of choreFrequencyOptions; track frequency.value) {
+            <div
+              class="freq-opt"
+              [class.selected]="form.get('frequency')?.value === frequency.value"
+              (click)="form.patchValue({ frequency: frequency.value })"
+            >
+              {{ frequency.label }}
+            </div>
+          }
+        </div>
+      </div>
 
-  <!-- Due day (shown for weekly) -->
-  <div class="form-group">
-    <label class="form-label">Due Day</label>
-    <select class="form-input filled" style="appearance: none; cursor: pointer">
-      <option>Monday</option>
-      <option selected>Friday</option>
-      <option>Sunday</option>
-    </select>
-  </div>
+      <!-- Due day (shown for weekly) -->
+      @if (form.get('frequency')?.value === choreFrequency.Weekly) {
+        <div class="form-group">
+          <label class="form-label">Due Day</label>
 
-  <!-- Points -->
-  <div class="form-group">
-    <label class="form-label">Points Reward</label>
-    <div class="pts-stepper">
-      <button
-        class="stepper-btn"
-        onclick="
-          let v = document.getElementById('ptsVal');
-          v.textContent = Math.max(50, parseInt(v.textContent) - 50);
-        "
-      >
-        −
+          <select
+            class="form-input filled"
+            formControlName="dayOfWeek"
+            style="appearance: none; cursor: pointer"
+          >
+            @for (day of daysOfWeek; track day.value) {
+              <option [value]="day.value">
+                {{ day.label }}
+              </option>
+            }
+          </select>
+        </div>
+      }
+
+      <!-- Points -->
+      <div class="form-group">
+        <label class="form-label">Points Reward</label>
+        <div class="pts-stepper">
+          <button class="stepper-btn" type="button" (click)="adjustPoints(-50)">−</button>
+
+          <div class="pts-val">
+            {{ form.get('points')?.value }}
+          </div>
+
+          <div class="pts-label">⭐ pts</div>
+
+          <button class="stepper-btn" type="button" (click)="adjustPoints(50)">+</button>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="form-group">
+        <label class="form-label">Instructions (Optional)</label>
+        <textarea
+          class="form-input"
+          rows="2"
+          placeholder="e.g. Don't forget under the sofa!"
+          style="resize: none; line-height: 1.5"
+          formControlName="description"
+        ></textarea>
+      </div>
+
+      <button class="btn-save" [disabled]="loading() || form.invalid" type="submit">
+        @if (loading()) {
+          Saving <app-loading-emoji />
+        } @else {
+          Save Chore
+        }
       </button>
-      <div class="pts-val" id="ptsVal">600</div>
-      <div class="pts-label">⭐ pts</div>
-      <button
-        class="stepper-btn"
-        onclick="
-          let v = document.getElementById('ptsVal');
-          v.textContent = parseInt(v.textContent) + 50;
-        "
-      >
-        +
-      </button>
-    </div>
+    </form>
   </div>
-
-  <!-- Require photo -->
-  <div class="form-group">
-    <label class="form-label">Proof Required</label>
-    <div class="toggle-row">
-      <div class="toggle-row-left">
-        <div class="toggle-row-title">📸 Require Photo</div>
-        <div class="toggle-row-sub">Kid must upload a photo to complete</div>
-      </div>
-      <div
-        class="toggle"
-        onclick="
-          this.style.background =
-            this.style.background === 'rgb(39, 174, 96)' ? '#e0e0e0' : 'rgb(39, 174, 96)'
-        "
-      >
-        <div class="toggle-knob"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Notes -->
-  <div class="form-group">
-    <label class="form-label">Instructions (Optional)</label>
-    <textarea
-      class="form-input"
-      rows="2"
-      placeholder="e.g. Don't forget under the sofa!"
-      style="resize: none; line-height: 1.5"
-    ></textarea>
-  </div>
-
-  <button
-    class="btn-save"
-    onclick="
-      this.innerHTML = 'Saving... ⏳';
-      setTimeout(() => (this.innerHTML = 'Save Chore ✅'), 1500);
-    "
-  >
-    Save Chore ✅
-  </button>
-</div>
+} @else {
+  <app-loading-screen />
+}
