@@ -1,3 +1,5 @@
+@use '../../../../shared/styles/buttons.scss' as buttons;
+
 .header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     padding: 100px 20px 40px;
@@ -255,9 +257,7 @@
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
-    color: white;
-    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+    @include buttons.btn-success;
 }
 
 .btn-secondary {
@@ -267,9 +267,7 @@
 }
 
 .btn-success {
-    background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
-    color: white;
-    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+    @include buttons.btn-success;
 }
 
 .btn-warning {
