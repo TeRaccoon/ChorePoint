@@ -7,9 +7,12 @@ import { KidsService } from '../../../../core/services/kids.service';
 import { LoadingEmoji } from '../../../../shared/components/loading-emoji/loading-emoji';
 import { LoadingScreen } from '../../../../shared/pages/loading-screen/loading-screen';
 import { User } from '../../../kids/models/user';
-import { Frequency } from '../../models/chore';
-import { DAYS_OF_WEEK } from '../../models/days-of-week';
-import { FrequencyOptions } from '../../models/frequency-options';
+import { ChoreService } from '../../api/services/chore.service';
+import { DAYS_OF_WEEK } from '../../config/days-of-week';
+import { DifficultyOptions } from '../../config/difficulty-options';
+import { FrequencyOptions } from '../../config/frequency-options';
+import { Difficulty } from '../../models/enums/difficulty.enum';
+import { Frequency } from '../../models/enums/frequency.enum';
 
 @Component({
   selector: 'app-add-chore',
@@ -18,12 +21,14 @@ import { FrequencyOptions } from '../../models/frequency-options';
   styleUrl: './add-chore.scss',
 })
 export class AddChore {
+  private choreService = inject(ChoreService);
   private kidsService = inject(KidsService);
   private fb = inject(FormBuilder);
 
   loading = signal(false);
   error = signal<string | null>(null);
 
+  choreDifficultyOptions = DifficultyOptions;
   choreEmojis = CHORE_EMOJIS;
   daysOfWeek = DAYS_OF_WEEK;
   choreFrequencyOptions = FrequencyOptions;
@@ -36,9 +41,10 @@ export class AddChore {
   form = this.fb.nonNullable.group({
     name: ['', { validators: [Validators.required] }],
     icon: ['', { validators: [Validators.required] }],
-    kidId: [null as number | null, { validators: [Validators.required] }],
+    kidId: [0, { validators: [Validators.required] }],
     frequency: [Frequency.Daily, { validators: [Validators.required] }],
-    dueDate: [''],
+    difficulty: [Difficulty.Easy, { validators: [Validators.required] }],
+    dueDay: [null],
     points: [0, { validators: [Validators.required, Validators.min(0)] }],
     description: [''],
   });
@@ -79,5 +85,18 @@ export class AddChore {
 
     this.loading.set(true);
     this.error.set(null);
+
+    this.choreService.createChore(this.form.getRawValue()).subscribe({
+      next: () => {
+        console.log('Chore created successfully');
+        this.loading.set(false);
+        this.form.reset();
+      },
+      error: (err) => {
+        console.error('Error creating chore:', err);
+        this.error.set('Failed to create chore. Please try again.');
+        this.loading.set(false);
+      },
+    });
   }
 }

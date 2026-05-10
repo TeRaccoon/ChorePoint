@@ -84,6 +84,22 @@
         </div>
       </div>
 
+      <!-- Difficulty -->
+      <div class="form-group">
+        <label class="form-label">Difficulty</label>
+        <div class="freq-row">
+          @for (difficulty of choreDifficultyOptions; track difficulty) {
+            <div
+              class="freq-opt"
+              [class.selected]="form.get('difficulty')?.value === difficulty.value"
+              (click)="form.patchValue({ difficulty: difficulty.value })"
+            >
+              {{ difficulty.label }}
+            </div>
+          }
+        </div>
+      </div>
+
       <!-- Due day (shown for weekly) -->
       @if (form.get('frequency')?.value === choreFrequency.Weekly) {
         <div class="form-group">
@@ -91,7 +107,7 @@
 
           <select
             class="form-input filled"
-            formControlName="dayOfWeek"
+            formControlName="dueDay"
             style="appearance: none; cursor: pointer"
           >
             @for (day of daysOfWeek; track day.value) {
