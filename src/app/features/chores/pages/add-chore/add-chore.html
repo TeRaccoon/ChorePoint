@@ -84,22 +84,6 @@
         </div>
       </div>
 
-      <!-- Difficulty -->
-      <div class="form-group">
-        <label class="form-label">Difficulty</label>
-        <div class="freq-row">
-          @for (difficulty of choreDifficultyOptions; track difficulty) {
-            <div
-              class="freq-opt"
-              [class.selected]="form.get('difficulty')?.value === difficulty.value"
-              (click)="form.patchValue({ difficulty: difficulty.value })"
-            >
-              {{ difficulty.label }}
-            </div>
-          }
-        </div>
-      </div>
-
       <!-- Due day (shown for weekly) -->
       @if (form.get('frequency')?.value === choreFrequency.Weekly) {
         <div class="form-group">
@@ -132,6 +116,22 @@
           <div class="pts-label">⭐ pts</div>
 
           <button class="stepper-btn" type="button" (click)="adjustPoints(50)">+</button>
+        </div>
+      </div>
+
+      <!-- Difficulty -->
+      <div class="form-group">
+        <label class="form-label">Difficulty</label>
+        <div class="freq-row">
+          @for (difficulty of choreDifficultyOptions; track difficulty) {
+            <div
+              class="freq-opt"
+              [class.selected]="form.get('difficulty')?.value === difficulty.value"
+              (click)="form.patchValue({ difficulty: difficulty.value })"
+            >
+              {{ difficulty.label }}
+            </div>
+          }
         </div>
       </div>
 
