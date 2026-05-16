@@ -1,0 +1,40 @@
+<div class="kid-card">
+  <div class="kid-card-top">
+    <div class="kid-avatar avatar-blue">{{ kid.avatar }}</div>
+    <div class="kid-info">
+      <div class="kid-name">{{ kid.name }}</div>
+      <div class="kid-meta">Age {{ kid.age }} · {{ kid.chores.length }} active chores</div>
+    </div>
+    <div class="kid-points-badge">{{ kid.totalPoints }} ⭐</div>
+  </div>
+  <div class="kid-progress">
+    <div class="progress-label">
+      Weekly completion %<span>{{ kid.kidStats.weeklyCompletionPercentage }}%</span>
+    </div>
+    <div class="progress-track">
+      <div
+        class="progress-fill fill-blue"
+        [style.width]="kid.kidStats.weeklyCompletionPercentage + '%'"
+      ></div>
+    </div>
+  </div>
+  <div class="kid-stats">
+    <div class="kid-stat">
+      <div class="kid-stat-val">🔥 {{ kid.dayStreak }}</div>
+      <div class="kid-stat-lbl">Day Streak</div>
+    </div>
+    <div class="kid-stat">
+      <div class="kid-stat-val">{{ kid.kidStats.approvalRate }} %</div>
+      <div class="kid-stat-lbl">Approval Rate</div>
+    </div>
+    <div class="kid-stat">
+      <div class="kid-stat-val">{{ kid.pointsToday }}</div>
+      <div class="kid-stat-lbl">Points Today</div>
+    </div>
+  </div>
+  <div class="kid-actions">
+    <button class="kid-action-btn">📋 Chores</button>
+    <button class="kid-action-btn">🎁 Rewards</button>
+    <button class="kid-action-btn primary">✏️ Edit</button>
+  </div>
+</div>
