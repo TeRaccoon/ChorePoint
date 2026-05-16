@@ -1,0 +1,65 @@
+.pending-item {
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    .pending-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+
+        .pending-info {
+            flex: 1;
+
+            .pending-chore {
+                font-size: 16px;
+                font-weight: 700;
+                color: #2c3e50;
+                margin-bottom: 4px;
+            }
+
+            .pending-meta {
+                font-size: 12px;
+                color: #7f8c8d;
+            }
+        }
+
+        .pending-photo {
+            width: 60px;
+            height: 60px;
+            background: #ecf0f1;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+    }
+
+    .pending-actions {
+        display: flex;
+        gap: 8px;
+
+        .action-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .approve-btn {
+            background: #27ae60;
+            color: white;
+        }
+
+        .reject-btn {
+            background: #ecf0f1;
+            color: #7f8c8d;
+        }
+    }
+}
