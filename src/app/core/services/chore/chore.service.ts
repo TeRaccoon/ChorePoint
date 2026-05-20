@@ -32,7 +32,7 @@ export class ChoreService {
 
   getChores(visible = true) {
     return this.http
-      .get<GetChoresResponse>(`${this.baseUrl}/user?visible=${visible}`)
+      .get<GetChoresResponse>(`${this.baseUrl}/parent?visible=${visible}`)
       .pipe(
         catchError((error) => {
           console.error('Error fetching chores:', error);

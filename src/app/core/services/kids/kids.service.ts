@@ -8,7 +8,7 @@ import { GetKidsResponse } from './kids.dtos';
 export class KidsService {
   private http = inject(HttpClient);
 
-  private baseUrl = 'https://localhost:7087/api/user';
+  private baseUrl = 'https://localhost:7087/api/parent';
 
   getKids() {
     return this.http
