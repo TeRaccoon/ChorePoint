@@ -2,7 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { map } from 'rxjs/internal/operators/map';
-import { GetKidsResponse } from './kids.dtos';
+import { startWith } from 'rxjs/internal/operators/startWith';
+import { Kid } from '../../types/dtos/kid';
+import { DEFAULT_INITIAL_STATE } from '../chore-submission/chore-submission.dtos';
+import { ApiResponse } from '../dtos/response';
+import { mapError, mapSuccess } from '../response-mapper';
 
 @Injectable({ providedIn: 'root' })
 export class KidsService {
@@ -11,17 +15,10 @@ export class KidsService {
   private baseUrl = 'https://localhost:7087/api/parent';
 
   getKids() {
-    return this.http
-      .get<GetKidsResponse>(`${this.baseUrl}/kids`)
-      .pipe(
-        catchError((error) => {
-          console.error('Error fetching children:', error);
-          throw error;
-        }),
-      )
-      .pipe(
-        // Map the response to return just the array of kids
-        map((response) => response.data),
-      );
+    return this.http.get<ApiResponse<Kid[]>>(`${this.baseUrl}/kids`).pipe(
+      map((res) => mapSuccess<Kid[]>(res)),
+      catchError(mapError<Kid[]>([])),
+      startWith(DEFAULT_INITIAL_STATE),
+    );
   }
 }

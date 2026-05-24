@@ -60,9 +60,11 @@ export class KidsSettings {
         ...kid,
         chores: chores.filter((c) => c.userId === kid.id),
         kidStats: {
-          ...stats!,
+          ...stats!.data!,
           weeklyCompletionPercentage:
-            stats!.dueThisWeek > 0 ? (stats!.completedThisWeek / stats!.dueThisWeek) * 100 : 100,
+            stats!.data!.dueThisWeek > 0
+              ? (stats!.data!.completedThisWeek / stats!.data!.dueThisWeek) * 100
+              : 100,
         },
       })),
     );

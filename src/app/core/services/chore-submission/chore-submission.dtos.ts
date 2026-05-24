@@ -1,10 +1,5 @@
 import { ChoreSubmission } from '../../types/dtos/chore-submission';
 import { RequestState } from '../../types/interfaces/request-state';
-import { ApiResponse } from '../dtos/response';
-
-export type GetKidStatsResponse = ApiResponse<KidStats> & {
-  isLoading: boolean;
-};
 
 export type GetChoreSubmissionsResponse = RequestState<ChoreSubmission[]>;
 
@@ -15,4 +10,9 @@ export type KidStats = {
   dueToday: number;
   dueThisWeek: number;
   weeklyCompletionPercentage: number;
+};
+
+export const DEFAULT_INITIAL_STATE = {
+  isLoading: false,
+  data: null,
 };
