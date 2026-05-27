@@ -11,8 +11,3 @@ export type KidStats = {
   dueThisWeek: number;
   weeklyCompletionPercentage: number;
 };
-
-export const DEFAULT_INITIAL_STATE = {
-  isLoading: false,
-  data: null,
-};
