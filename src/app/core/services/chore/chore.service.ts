@@ -6,7 +6,7 @@ import { catchError } from 'rxjs/internal/operators/catchError';
 import { map } from 'rxjs/internal/operators/map';
 import { Chore } from '../../types/dtos/chore';
 import { ApiGetResponse } from '../dtos/response';
-import { CreateChoreRequest } from './chore.dtos';
+import { CreateChoreRequest, UpdateChoreRequest } from './chore.dtos';
 
 @Injectable({ providedIn: 'root' })
 export class ChoreService {
@@ -28,8 +28,13 @@ export class ChoreService {
     );
   }
 
-  getChores$(visible = true) {
-    return this.http.get<ApiGetResponse<Chore[]>>(`${this.baseUrl}/parent?visible=${visible}`).pipe(
+  getChores$(visible?: boolean) {
+    var url = `${this.baseUrl}/parent`;
+    if (visible !== undefined) {
+      url += `?visible=${visible}`;
+    }
+
+    return this.http.get<ApiGetResponse<Chore[]>>(url).pipe(
       map((res) => res.data),
       catchError((err) => (err.status === 404 ? of([]) : throwError(() => err))),
     );
@@ -37,5 +42,13 @@ export class ChoreService {
 
   createChore$(request: CreateChoreRequest) {
     return this.http.post<void>(`${this.baseUrl}/create`, request);
+  }
+
+  updateChore$(request: UpdateChoreRequest) {
+    //TODO: Implement update chore API call
+  }
+
+  deleteChore(id: number) {
+    //TODO: Implement delete chore API call
   }
 }
