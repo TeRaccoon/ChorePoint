@@ -1,0 +1,53 @@
+<div class="section-header">
+  <div class="section-title">{{ timeframe | titlecase }} Chores</div>
+  <div class="section-count">{{ chores.length }} active</div>
+</div>
+<div class="chore-list">
+  @if (chores.length === 0) {
+    <div class="chore-card {{ timeframe }}">
+      <div class="chore-emoji-wrap bg-purple">🧹</div>
+      <div class="empty-text">No {{ timeframe }} chores yet. Add some to keep the kids busy!</div>
+    </div>
+  } @else {
+    @for (chore of chores; track chore.id) {
+      <div class="chore-card {{ timeframe }}">
+        <div class="chore-emoji-wrap bg-purple">{{ chore.icon }}</div>
+        <div class="chore-info">
+          <div class="chore-name">{{ chore.name }}</div>
+          <div class="chore-meta">
+            <span class="meta-tag tag-{{ timeframe }}">{{ timeframe | titlecase }}</span>
+            <span class="chore-assignee">{{ kidsDictionary[chore.kidId]?.name }}</span>
+          </div>
+        </div>
+        <div class="chore-right">
+          <div class="chore-pts">+{{ chore.points }} ⭐</div>
+          <div
+            class="chore-status"
+            [class.status-active]="chore.isVisible"
+            [class.status-inactive]="!chore.isVisible"
+          >
+            {{ chore.isVisible ? 'Active' : 'Inactive' }}
+          </div>
+        </div>
+        <div class="chore-menu-wrap">
+          <div class="chore-menu" (click)="toggleMenu(chore.id)">⋮</div>
+          <div class="context-menu" [class.show]="chore.id === menuOpen">
+            <div class="menu-item mi-resume" (click)="toggleActive(chore)">
+              <div class="mi-icon">▶️</div>
+              {{ chore.isVisible ? 'Deactivate' : 'Activate' }} chore
+            </div>
+            <div class="menu-item mi-edit" [routerLink]="['edit', chore.id]">
+              <div class="mi-icon">✏️</div>
+              Edit chore
+            </div>
+            <div class="menu-divider"></div>
+            <div class="menu-item mi-delete" (click)="delete(chore)">
+              <div class="mi-icon">🗑️</div>
+              Delete chore
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  }
+</div>
