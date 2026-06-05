@@ -11,9 +11,9 @@ export class KidSelectorHeader {
   @Input() kids!: Kid[];
   @Input() selectedKidId?: number;
 
-  @Output() kidSelected = new EventEmitter<Kid>();
+  @Output() kidSelected = new EventEmitter<Kid | null>();
 
-  onKidSelected(kid: Kid) {
+  onKidSelected(kid: Kid | null) {
     this.kidSelected.emit(kid);
   }
 }
