@@ -1,5 +1,13 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Chore } from '../../../core/types/dtos/chore';
 import { Kid } from '../../../core/types/dtos/kid';
@@ -11,7 +19,10 @@ import { Kid } from '../../../core/types/dtos/kid';
   styleUrl: './chore-card.scss',
 })
 export class ChoreCard {
-  @Input() chores!: Chore[];
+  @ViewChild('menu') menu!: ElementRef;
+  @ViewChild('toggle') toggle!: ElementRef;
+
+  @Input() chore!: Chore;
   @Input() kidsDictionary!: Record<number, Kid>;
   @Input() timeframe!: 'daily' | 'weekly' | 'bonus';
 
@@ -20,7 +31,16 @@ export class ChoreCard {
 
   menuOpen = -1;
 
+  constructor(private renderer: Renderer2) {
+    this.renderer.listen('window', 'click', (e: Event) => {
+      if (!this.menu.nativeElement.contains(e.target) && e.target !== this.toggle.nativeElement) {
+        this.menuOpen = -1;
+      }
+    });
+  }
+
   toggleMenu(choreId: number) {
+    console.log('Toggling menu for chore ID:', choreId);
     this.menuOpen = this.menuOpen === choreId ? -1 : choreId;
   }
 
@@ -30,5 +50,9 @@ export class ChoreCard {
 
   delete(chore: Chore) {
     this.deleteEmitter.emit(chore);
+  }
+
+  closeMenu() {
+    this.menuOpen = -1;
   }
 }
