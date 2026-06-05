@@ -1,0 +1,73 @@
+@if (vm$ | async; as vm) {
+  <div class="header">
+    <div class="header-top">
+      <div class="page-title">Chores</div>
+      <div [routerLink]="['add']" class="add-button">+</div>
+    </div>
+    <app-kid-selector-header
+      [kids]="vm.kids"
+      [selectedKidId]="vm.selectedKid?.id ?? -1"
+      (kidSelected)="vm.selectedKid = $event"
+    ></app-kid-selector-header>
+  </div>
+
+  <div class="filter-row">
+    <div
+      class="filter-pill"
+      [class.active]="selectedFrequency == null"
+      (click)="filterByFrequency(null)"
+    >
+      All
+    </div>
+    <div
+      class="filter-pill"
+      [class.active]="selectedFrequency == ChoreFrequency.Daily"
+      (click)="filterByFrequency(ChoreFrequency.Daily)"
+    >
+      Daily
+    </div>
+    <div
+      class="filter-pill"
+      [class.active]="selectedFrequency == ChoreFrequency.Weekly"
+      (click)="filterByFrequency(ChoreFrequency.Weekly)"
+    >
+      Weekly
+    </div>
+    <div
+      class="filter-pill"
+      [class.active]="selectedFrequency == ChoreFrequency.Bonus"
+      (click)="filterByFrequency(ChoreFrequency.Bonus)"
+    >
+      Bonus
+    </div>
+  </div>
+
+  <div class="content">
+    @if (isSelectedFrequency(ChoreFrequency.Daily)) {
+      <app-chore-card-wrapper
+        [chores]="getFilteredChores(vm.dailyChores, vm.selectedKid)"
+        [kidsDictionary]="vm.kidsDictionary"
+        (deleteEmitter)="deleteChore($event)"
+        (toggleActiveEmitter)="toggleActive($event)"
+      />
+    }
+    @if (isSelectedFrequency(ChoreFrequency.Weekly)) {
+      <app-chore-card-wrapper
+        [chores]="getFilteredChores(vm.weeklyChores, vm.selectedKid)"
+        [kidsDictionary]="vm.kidsDictionary"
+        (deleteEmitter)="deleteChore($event)"
+        (toggleActiveEmitter)="toggleActive($event)"
+      />
+    }
+    @if (isSelectedFrequency(ChoreFrequency.Bonus)) {
+      <app-chore-card-wrapper
+        [chores]="getFilteredChores(vm.bonusChores, vm.selectedKid)"
+        [kidsDictionary]="vm.kidsDictionary"
+        (deleteEmitter)="deleteChore($event)"
+        (toggleActiveEmitter)="toggleActive($event)"
+      />
+    }
+  </div>
+} @else {
+  <app-loading-screen />
+}

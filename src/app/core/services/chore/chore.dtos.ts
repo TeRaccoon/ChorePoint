@@ -2,6 +2,7 @@ import { Chore } from '../../types/dtos/chore';
 import { ApiGetResponse } from '../dtos/response';
 
 export type GetChoresResponse = ApiGetResponse<Chore[]>;
+
 export type CreateChoreRequest = {
   name: string;
   icon: string;
@@ -9,5 +10,8 @@ export type CreateChoreRequest = {
   frequency: number;
   dueDay: number | null;
   points: number;
-  description: string;
+  description: string | null;
+  isVisible: boolean;
 };
+
+export type UpdateChoreRequest = CreateChoreRequest & { id: number };

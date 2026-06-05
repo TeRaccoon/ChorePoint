@@ -1,10 +1,17 @@
 @if (kids.length > 0) {
   <div class="child-selector">
+    <div
+      (click)="onKidSelected(null)"
+      class="child-chip"
+      [class]="selectedKidId === -1 ? 'active' : ''"
+    >
+      All
+    </div>
     @for (kid of kids; track kid.id) {
       <div
         (click)="onKidSelected(kid)"
         class="child-chip"
-        [class]="kid.id === selectedKidId ? 'active' : ''"
+        [class]="selectedKidId === kid.id ? 'active' : ''"
       >
         {{ kid.name }}
       </div>
