@@ -49,6 +49,7 @@ export class AddChore {
     dueDay: [null],
     points: [0, { validators: [Validators.required, Validators.min(0)] }],
     description: [''],
+    isVisible: [true],
   });
 
   kids$ = this.kidsDataService.kids$;
