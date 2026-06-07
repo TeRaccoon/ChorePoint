@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { combineLatest, map, Observable, Subject } from 'rxjs';
 import { ChoreService } from '../../../../core/services/chore/chore.service';
@@ -19,7 +19,7 @@ import { KidSelectorHeader } from '../../../chores/components/kid-selector-heade
   templateUrl: './chore-view.html',
   styleUrl: './chore-view.scss',
 })
-export class ChoreView {
+export class ChoreView implements OnInit {
   private kidService = inject(KidsService);
   private choreService = inject(ChoreService);
 

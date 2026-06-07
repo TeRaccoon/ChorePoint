@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { map, Observable } from 'rxjs';
 import { CHORE_EMOJIS } from '../../../../consts/chore-emojis';
@@ -22,7 +22,7 @@ import { FrequencyOptions } from '../../config/frequency-options';
   templateUrl: './add-chore.html',
   styleUrl: './add-chore.scss',
 })
-export class AddChore {
+export class AddChore implements OnInit {
   private choreService = inject(ChoreService);
   private kidsDataService = inject(KidsDataService);
   private fb = inject(FormBuilder);

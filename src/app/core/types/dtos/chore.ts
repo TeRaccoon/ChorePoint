@@ -2,7 +2,7 @@ import { ChoreDifficulty } from '../enums/chore-difficulty';
 import { ChoreFrequency } from '../enums/chore-frequency';
 import { DayOfWeek } from '../enums/day-of-week';
 
-export type Chore = {
+export interface Chore {
   id: number;
   kidId: number;
   name: string;
@@ -17,4 +17,4 @@ export type Chore = {
   updatedAt: Date | null;
   completionCount: number;
   description: string | null;
-};
+}

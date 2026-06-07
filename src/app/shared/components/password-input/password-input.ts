@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -7,12 +7,12 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   templateUrl: './password-input.html',
   styleUrl: './password-input.scss',
 })
-export class PasswordInput {
+export class PasswordInput implements OnInit {
   @Input() label!: string;
   @Input() icon!: string;
-  @Input() placeholder: string = '';
+  @Input() placeholder = '';
   @Input() control!: FormControl;
-  @Input() showStrengthBar: boolean = false;
+  @Input() showStrengthBar = false;
 
   showPassword = false;
 

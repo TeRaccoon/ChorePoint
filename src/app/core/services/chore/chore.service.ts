@@ -29,7 +29,7 @@ export class ChoreService {
   }
 
   getChores$(visible?: boolean) {
-    var url = `${this.baseUrl}/parent`;
+    let url = `${this.baseUrl}/parent`;
     if (visible !== undefined) {
       url += `?visible=${visible}`;
     }

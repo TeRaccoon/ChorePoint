@@ -1,4 +1,4 @@
-export type Kid = {
+export interface Kid {
   id: number;
   name: string;
   age: number;
@@ -7,4 +7,4 @@ export type Kid = {
   pointsToday: number;
   dayStreak: number;
   parentId: number;
-};
+}

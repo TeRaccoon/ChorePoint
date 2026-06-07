@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Observable, Subject, combineLatest, map, startWith, switchMap } from 'rxjs';
 import { KidStats } from '../../../../core/services/chore-submission/chore-submission.dtos';
 import { ChoreSubmissionService } from '../../../../core/services/chore-submission/chore-submission.service';
@@ -17,7 +17,7 @@ import { PendingApproval } from '../../components/pending-approval/pending-appro
   templateUrl: './dashboard-home.html',
   styleUrl: './dashboard-home.scss',
 })
-export class DashboardHome {
+export class DashboardHome implements OnInit {
   private choreCompletionService = inject(ChoreSubmissionService);
   private kidsDataService = inject(KidsDataService);
 

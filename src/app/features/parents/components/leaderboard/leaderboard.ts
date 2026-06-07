@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Kid } from '../../../../core/types/dtos/kid';
 
 @Component({
@@ -7,7 +7,7 @@ import { Kid } from '../../../../core/types/dtos/kid';
   templateUrl: './leaderboard.html',
   styleUrl: './leaderboard.scss',
 })
-export class Leaderboard {
+export class Leaderboard implements OnInit {
   @Input() kids: Kid[] = [];
 
   leaderboardKids: Kid[] = [];

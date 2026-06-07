@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
@@ -14,7 +14,7 @@ import { LoadingScreen } from '../../../../shared/pages/loading-screen/loading-s
   templateUrl: './chore-dashboard.html',
   styleUrl: './chore-dashboard.scss',
 })
-export class ChoreDashboard {
+export class ChoreDashboard implements OnInit {
   user: Kid | null = null;
   chores: Chore[] = [];
 

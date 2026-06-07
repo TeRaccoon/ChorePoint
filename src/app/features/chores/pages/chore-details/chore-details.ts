@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowLeft, faSpinner } from '@fortawesome/free-solid-svg-icons';
@@ -20,7 +20,7 @@ import { APPROVAL_STATUS_CONFIG, DEFAULT_STATUS } from './approval-status.config
   templateUrl: './chore-details.html',
   styleUrl: './chore-details.scss',
 })
-export class ChoreDetails {
+export class ChoreDetails implements OnInit {
   private choreService = inject(ChoreService);
   private choreSubmissionService = inject(ChoreSubmissionService);
   private route = inject(ActivatedRoute);

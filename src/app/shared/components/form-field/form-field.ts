@@ -10,7 +10,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 export class FormField {
   @Input() label!: string;
   @Input() icon!: string;
-  @Input() type: string = 'text';
-  @Input() placeholder: string = '';
+  @Input() type = 'text';
+  @Input() placeholder = '';
   @Input() control!: FormControl;
 }

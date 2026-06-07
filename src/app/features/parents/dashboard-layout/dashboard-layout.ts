@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { KidsService } from '../../../core/services/kids/kids.service';
@@ -11,7 +11,7 @@ import { DashboardFooterMenu } from '../../../shared/components/dashboard-footer
   templateUrl: './dashboard-layout.html',
   styleUrl: './dashboard-layout.scss',
 })
-export class DashboardLayout {
+export class DashboardLayout implements OnInit {
   private kidsService = inject(KidsService);
 
   vm$!: Observable<{

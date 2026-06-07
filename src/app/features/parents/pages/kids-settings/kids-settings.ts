@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { combineLatest, Observable, switchMap } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
@@ -21,7 +21,7 @@ import { KidDetails } from './types';
   templateUrl: './kids-settings.html',
   styleUrl: './kids-settings.scss',
 })
-export class KidsSettings {
+export class KidsSettings implements OnInit {
   private choreCompletionService = inject(ChoreSubmissionService);
   private choreService = inject(ChoreService);
   private kidService = inject(KidsService);

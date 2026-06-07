@@ -7,8 +7,8 @@ import { Component, Input } from '@angular/core';
   styleUrl: './card-image.scss',
 })
 export class CardImage {
-  @Input() imageSource: string = 'reward.png';
+  @Input() imageSource = 'reward.png';
   @Input() caption!: string;
   @Input() description!: string;
-  @Input() cost: number = 0;
+  @Input() cost = 0;
 }

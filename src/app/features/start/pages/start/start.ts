@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 import { CreateProfile } from '../create-profile/create-profile';
@@ -12,7 +12,7 @@ import { Welcome } from '../welcome/welcome';
   templateUrl: './start.html',
   styleUrl: './start.scss',
 })
-export class Start {
+export class Start implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
 

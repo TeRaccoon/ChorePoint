@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  inject,
   Input,
   Output,
   Renderer2,
@@ -19,6 +20,8 @@ import { Kid } from '../../../core/types/dtos/kid';
   styleUrl: './chore-card.scss',
 })
 export class ChoreCard {
+  private renderer = inject(Renderer2);
+
   @ViewChild('menu') menu!: ElementRef;
   @ViewChild('toggle') toggle!: ElementRef;
 
@@ -31,7 +34,7 @@ export class ChoreCard {
 
   menuOpen = -1;
 
-  constructor(private renderer: Renderer2) {
+  constructor() {
     this.renderer.listen('window', 'click', (e: Event) => {
       if (!this.menu.nativeElement.contains(e.target) && e.target !== this.toggle.nativeElement) {
         this.menuOpen = -1;

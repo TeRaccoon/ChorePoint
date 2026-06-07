@@ -1,7 +1,7 @@
 import { ApprovalStatus } from '../enums/approval-status';
 import { Chore } from './chore';
 
-export type ChoreSubmission = {
+export interface ChoreSubmission {
   id: number;
   choreId: number;
   userId: number;
@@ -12,4 +12,4 @@ export type ChoreSubmission = {
   notes: string | null;
   createdAt: Date | null;
   chore: Chore;
-};
+}

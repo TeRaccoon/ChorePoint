@@ -1,4 +1,4 @@
-export type ActionButton = {
+export interface ActionButton {
   text: string;
   class: string;
-};
+}

@@ -3,7 +3,7 @@ import { ApiGetResponse } from '../dtos/response';
 
 export type GetChoresResponse = ApiGetResponse<Chore[]>;
 
-export type CreateChoreRequest = {
+export interface CreateChoreRequest {
   name: string;
   icon: string;
   kidId: number;
@@ -12,6 +12,6 @@ export type CreateChoreRequest = {
   points: number;
   description: string | null;
   isVisible: boolean;
-};
+}
 
 export type UpdateChoreRequest = CreateChoreRequest & { id: number };
