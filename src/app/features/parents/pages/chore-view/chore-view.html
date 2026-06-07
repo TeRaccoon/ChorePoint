@@ -14,28 +14,28 @@
   <div class="filter-row">
     <div
       class="filter-pill"
-      [class.active]="selectedFrequency == null"
+      [class.active]="selectedFrequency === null"
       (click)="filterByFrequency(null)"
     >
       All
     </div>
     <div
       class="filter-pill"
-      [class.active]="selectedFrequency == ChoreFrequency.Daily"
+      [class.active]="selectedFrequency === ChoreFrequency.Daily"
       (click)="filterByFrequency(ChoreFrequency.Daily)"
     >
       Daily
     </div>
     <div
       class="filter-pill"
-      [class.active]="selectedFrequency == ChoreFrequency.Weekly"
+      [class.active]="selectedFrequency === ChoreFrequency.Weekly"
       (click)="filterByFrequency(ChoreFrequency.Weekly)"
     >
       Weekly
     </div>
     <div
       class="filter-pill"
-      [class.active]="selectedFrequency == ChoreFrequency.Bonus"
+      [class.active]="selectedFrequency === ChoreFrequency.Bonus"
       (click)="filterByFrequency(ChoreFrequency.Bonus)"
     >
       Bonus

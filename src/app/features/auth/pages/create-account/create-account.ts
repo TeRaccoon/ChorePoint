@@ -57,6 +57,4 @@ export class CreateAccount {
       },
     });
   }
-
-  toggleCheck() {}
 }

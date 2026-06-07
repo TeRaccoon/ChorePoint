@@ -1,11 +1,9 @@
-import { Injectable, inject } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { CanActivate } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class ChoreOwnerGuard implements CanActivate {
-  private router = inject(Router);
-
-  async canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
+  async canActivate(): Promise<boolean> {
     return true;
   }
 }

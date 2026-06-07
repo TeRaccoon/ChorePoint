@@ -15,6 +15,4 @@ export class CreateProfile {
   selectAvatar(avatar: string) {
     this.selectedAvatar = avatar;
   }
-
-  createProfile() {}
 }
