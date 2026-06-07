@@ -12,10 +12,12 @@ import {
 import { RouterLink } from '@angular/router';
 import { Chore } from '../../../core/types/dtos/chore';
 import { Kid } from '../../../core/types/dtos/kid';
+import { LoadingAction } from '../../types/loading-action';
+import { LoadingEmoji } from '../loading-emoji/loading-emoji';
 
 @Component({
   selector: 'app-chore-card',
-  imports: [TitleCasePipe, RouterLink],
+  imports: [TitleCasePipe, RouterLink, LoadingEmoji],
   templateUrl: './chore-card.html',
   styleUrl: './chore-card.scss',
 })
@@ -28,6 +30,7 @@ export class ChoreCard {
   @Input() chore!: Chore;
   @Input() kidsDictionary!: Record<number, Kid>;
   @Input() timeframe!: 'daily' | 'weekly' | 'bonus';
+  @Input() loadingAction: LoadingAction | null = null;
 
   @Output() deleteEmitter = new EventEmitter<Chore>();
   @Output() toggleActiveEmitter = new EventEmitter<Chore>();
@@ -43,7 +46,6 @@ export class ChoreCard {
   }
 
   toggleMenu(choreId: number) {
-    console.log('Toggling menu for chore ID:', choreId);
     this.menuOpen = this.menuOpen === choreId ? -1 : choreId;
   }
 
