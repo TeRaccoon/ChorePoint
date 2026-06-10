@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Kid } from '../../../core/types/dtos/kid';
 import { ChoreFrequency } from '../../../core/types/enums/chore-frequency';
 import { EmojiPicker } from '../../../features/chores/components/emoji-picker/emoji-picker';
@@ -16,6 +17,8 @@ import { LoadingEmoji } from '../loading-emoji/loading-emoji';
   styleUrl: './chore-form.scss',
 })
 export class ChoreForm {
+  router = inject(Router);
+
   @Input({ required: true }) form!: FormGroup;
   @Input() loading = false;
   @Input() title = '➕ Add New Chore';
@@ -41,6 +44,6 @@ export class ChoreForm {
   }
 
   back() {
-    window.history.back();
+    this.router.navigate(['/dashboard/chores']);
   }
 }
