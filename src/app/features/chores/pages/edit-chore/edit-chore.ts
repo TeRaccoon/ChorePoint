@@ -1,41 +1,38 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { map, Observable } from 'rxjs';
-import { CHORE_EMOJIS } from '../../../../consts/chore-emojis';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { forkJoin, Observable, tap } from 'rxjs';
 import { ChoreService } from '../../../../core/services/chore/chore.service';
 import { KidsDataService } from '../../../../core/services/kids/kids-data.service';
+import { Chore } from '../../../../core/types/dtos/chore';
 import { Kid } from '../../../../core/types/dtos/kid';
 import { ChoreDifficulty } from '../../../../core/types/enums/chore-difficulty';
 import { ChoreFrequency } from '../../../../core/types/enums/chore-frequency';
+import { DayOfWeek } from '../../../../core/types/enums/day-of-week';
 import { ChoreForm } from '../../../../shared/components/chore-form/chore-form';
 import { LoadingScreen } from '../../../../shared/pages/loading-screen/loading-screen';
-import { DAYS_OF_WEEK } from '../../config/days-of-week';
-import { DIFFICULTY_OPTIONS } from '../../config/difficulty-options';
-import { FREQUENCY_OPTIONS } from '../../config/frequency-options';
 
 @Component({
-  selector: 'app-add-chore',
-  imports: [ReactiveFormsModule, AsyncPipe, LoadingScreen, ChoreForm],
-  templateUrl: './add-chore.html',
-  styleUrl: './add-chore.scss',
+  selector: 'app-edit-chore',
+  imports: [AsyncPipe, ChoreForm, LoadingScreen],
+  templateUrl: './edit-chore.html',
+  styleUrl: './edit-chore.scss',
 })
-export class AddChore implements OnInit {
+export class EditChore implements OnInit {
   private choreService = inject(ChoreService);
-  private kidsDataService = inject(KidsDataService);
   private fb = inject(FormBuilder);
+  private kidsDataService = inject(KidsDataService);
+  private route = inject(ActivatedRoute);
 
   loading = signal(false);
   error = signal<string | null>(null);
 
-  choreDifficultyOptions = DIFFICULTY_OPTIONS;
-  choreEmojis = CHORE_EMOJIS;
-  daysOfWeek = DAYS_OF_WEEK;
-  choreFrequencyOptions = FREQUENCY_OPTIONS;
-  choreFrequency = ChoreFrequency;
+  choreId!: number;
 
   vm$!: Observable<{
     kids: Kid[];
+    chore: Chore | null;
   }>;
 
   form = this.fb.nonNullable.group({
@@ -44,38 +41,45 @@ export class AddChore implements OnInit {
     kidId: [0, { validators: [Validators.required] }],
     frequency: [ChoreFrequency.Daily, { validators: [Validators.required] }],
     difficulty: [ChoreDifficulty.Easy, { validators: [Validators.required] }],
-    dueDay: [null],
+    dueDay: [null as DayOfWeek | null],
     points: [0, { validators: [Validators.required, Validators.min(0)] }],
-    description: [''],
+    description: ['' as string | null],
     isVisible: [true],
   });
 
   kids$ = this.kidsDataService.kids$;
 
   ngOnInit() {
-    this.loadKids();
+    this.choreId = Number(this.route.snapshot.paramMap.get('id'));
+
+    this.loadData();
   }
 
-  loadKids() {
-    this.vm$ = this.kidsDataService.getKids$().pipe(
-      map((kids) => {
+  loadData() {
+    this.vm$ = forkJoin({
+      kids: this.kidsDataService.getKids$(),
+      chore: this.choreService.getById$(this.choreId!),
+    }).pipe(
+      tap(({ kids, chore }) => {
         if (kids.length && !this.form.value.kidId) {
           this.form.patchValue({ kidId: kids[0].id });
         }
 
-        return { kids };
+        if (chore != null) {
+          this.form.patchValue({
+            name: chore.name,
+            icon: chore.icon,
+            kidId: chore.kidId,
+            frequency: chore.frequency,
+            difficulty: chore.difficulty,
+            dueDay: chore.dueDay,
+            points: chore.points,
+            description: chore.description,
+            isVisible: chore.isVisible,
+          });
+        }
       }),
     );
-  }
-
-  selectFrequency(frequency: number) {
-    this.form.patchValue({ frequency });
-  }
-
-  adjustPoints(amount: number) {
-    const current = this.form.get('points')?.value || 0;
-    const next = Math.max(50, current + amount);
-    this.form.patchValue({ points: next });
   }
 
   submit() {
@@ -85,18 +89,18 @@ export class AddChore implements OnInit {
     }
 
     this.loading.set(true);
-    this.error.set(null);
 
-    this.choreService.createChore$(this.form.getRawValue()).subscribe({
+    this.choreService.updateChore$({ ...this.form.getRawValue(), id: this.choreId }).subscribe({
       next: () => {
-        console.log('Chore created successfully');
+        console.log('Chore updated successfully');
         this.loading.set(false);
-        this.form.reset();
+        window.history.back();
       },
       error: (err) => {
-        console.error('Error creating chore:', err);
-        this.error.set('Failed to create chore. Please try again.');
+        console.error('Error updating chore:', err);
+        this.error.set('Failed to update chore. Please try again.');
         this.loading.set(false);
+        window.history.back();
       },
     });
   }

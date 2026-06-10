@@ -1,0 +1,128 @@
+<!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
+<div class="sheet-header">
+  <div class="sheet-title">{{ title }}</div>
+  <div class="sheet-close" (click)="back()">✕</div>
+</div>
+
+<div class="sheet-content">
+  <form [formGroup]="form" (submit)="submit()">
+    <!-- Chore name -->
+    <div class="form-group">
+      <label class="form-label">Chore Name</label>
+      <input
+        class="form-input filled"
+        type="text"
+        placeholder="e.g. Tidy Bedroom"
+        formControlName="name"
+      />
+    </div>
+
+    <!-- Emoji picker -->
+    <div class="form-group">
+      <label class="form-label">Pick an Icon</label>
+      <app-emoji-picker
+        [selectedEmoji]="form.get('icon')?.value"
+        (selectedEmojiChange)="form.patchValue({ icon: $event })"
+      />
+    </div>
+
+    <!-- Assign to -->
+    <div class="form-group">
+      <label class="form-label">Assign To</label>
+      <div class="assign-row">
+        <app-kid-assign
+          [kids]="kids"
+          [selectedKid]="form.get('kidId')?.value"
+          (selectedKidChange)="form.patchValue({ kidId: $event })"
+        />
+      </div>
+    </div>
+
+    <!-- Frequency -->
+    <div class="form-group">
+      <label class="form-label">How Often?</label>
+      <div class="freq-row">
+        @for (frequency of ChoreFrequencyOptions; track frequency.value) {
+          <div
+            class="freq-opt"
+            [class.selected]="form.get('frequency')?.value === frequency.value"
+            (click)="form.patchValue({ frequency: frequency.value })"
+          >
+            {{ frequency.label }}
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Due day (shown for weekly) -->
+    @if (form.get('frequency')?.value === choreFrequency.Weekly) {
+      <div class="form-group">
+        <label class="form-label">Due Day</label>
+
+        <select
+          class="form-input filled"
+          formControlName="dueDay"
+          style="appearance: none; cursor: pointer"
+        >
+          @for (day of DaysOfWeek; track day.value) {
+            <option [value]="day.value">
+              {{ day.label }}
+            </option>
+          }
+        </select>
+      </div>
+    }
+
+    <!-- Points -->
+    <div class="form-group">
+      <label class="form-label">Points Reward</label>
+      <div class="pts-stepper">
+        <button class="stepper-btn" type="button" (click)="adjustPoints(-50)">−</button>
+
+        <div class="pts-val">
+          {{ form.get('points')?.value }}
+        </div>
+
+        <div class="pts-label">⭐ pts</div>
+
+        <button class="stepper-btn" type="button" (click)="adjustPoints(50)">+</button>
+      </div>
+    </div>
+
+    <!-- Difficulty -->
+    <div class="form-group">
+      <label class="form-label">Difficulty</label>
+      <div class="freq-row">
+        @for (difficulty of ChoreDifficultyOptions; track difficulty) {
+          <div
+            class="freq-opt"
+            [class.selected]="form.get('difficulty')?.value === difficulty.value"
+            (click)="form.patchValue({ difficulty: difficulty.value })"
+          >
+            {{ difficulty.label }}
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Notes -->
+    <div class="form-group">
+      <label class="form-label">Instructions (Optional)</label>
+      <textarea
+        class="form-input"
+        rows="2"
+        placeholder="e.g. Don't forget under the sofa!"
+        style="resize: none; line-height: 1.5"
+        formControlName="description"
+      ></textarea>
+    </div>
+
+    <button class="btn-save" [disabled]="loading || form.invalid" type="submit">
+      @if (loading) {
+        Saving <app-loading-emoji />
+      } @else {
+        {{ submitText }}
+      }
+    </button>
+  </form>
+</div>
