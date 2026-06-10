@@ -39,4 +39,8 @@ export class ChoreForm {
     const next = Math.max(50, current + amount);
     this.form.patchValue({ points: next });
   }
+
+  back() {
+    window.history.back();
+  }
 }

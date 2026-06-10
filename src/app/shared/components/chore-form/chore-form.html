@@ -1,7 +1,7 @@
 <!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
 <div class="sheet-header">
   <div class="sheet-title">{{ title }}</div>
-  <div class="sheet-close">✕</div>
+  <div class="sheet-close" (click)="back()">✕</div>
 </div>
 
 <div class="sheet-content">
