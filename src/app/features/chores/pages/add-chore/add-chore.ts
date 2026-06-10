@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { map, Observable } from 'rxjs';
 import { CHORE_EMOJIS } from '../../../../consts/chore-emojis';
@@ -8,17 +8,15 @@ import { KidsDataService } from '../../../../core/services/kids/kids-data.servic
 import { Kid } from '../../../../core/types/dtos/kid';
 import { ChoreDifficulty } from '../../../../core/types/enums/chore-difficulty';
 import { ChoreFrequency } from '../../../../core/types/enums/chore-frequency';
-import { LoadingEmoji } from '../../../../shared/components/loading-emoji/loading-emoji';
+import { ChoreForm } from '../../../../shared/components/chore-form/chore-form';
 import { LoadingScreen } from '../../../../shared/pages/loading-screen/loading-screen';
-import { EmojiPicker } from '../../components/emoji-picker/emoji-picker';
-import { KidAssign } from '../../components/kid-assign/kid-assign';
 import { DAYS_OF_WEEK } from '../../config/days-of-week';
-import { DifficultyOptions } from '../../config/difficulty-options';
-import { FrequencyOptions } from '../../config/frequency-options';
+import { DIFFICULTY_OPTIONS } from '../../config/difficulty-options';
+import { FREQUENCY_OPTIONS } from '../../config/frequency-options';
 
 @Component({
   selector: 'app-add-chore',
-  imports: [ReactiveFormsModule, AsyncPipe, LoadingScreen, LoadingEmoji, EmojiPicker, KidAssign],
+  imports: [ReactiveFormsModule, AsyncPipe, LoadingScreen, ChoreForm],
   templateUrl: './add-chore.html',
   styleUrl: './add-chore.scss',
 })
@@ -30,10 +28,10 @@ export class AddChore implements OnInit {
   loading = signal(false);
   error = signal<string | null>(null);
 
-  choreDifficultyOptions = DifficultyOptions;
+  choreDifficultyOptions = DIFFICULTY_OPTIONS;
   choreEmojis = CHORE_EMOJIS;
   daysOfWeek = DAYS_OF_WEEK;
-  choreFrequencyOptions = FrequencyOptions;
+  choreFrequencyOptions = FREQUENCY_OPTIONS;
   choreFrequency = ChoreFrequency;
 
   vm$!: Observable<{
