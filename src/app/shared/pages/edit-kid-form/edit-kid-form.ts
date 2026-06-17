@@ -85,18 +85,11 @@ export class EditKidForm implements OnInit {
         this.saveLoading.set(false);
         this.showToast();
       },
-      error: (err) => {
+      error: () => {
         console.log('Kid updated failed');
         this.saveLoading.set(false);
       },
     });
-  }
-
-  showToast() {
-    this.toastVisible = true;
-    setTimeout(() => {
-      this.toastVisible = false;
-    }, 2000);
   }
 
   delete() {
@@ -115,7 +108,7 @@ export class EditKidForm implements OnInit {
         this.deleteLoading.set(false);
         this.router.navigate(['/dashboard/kids']);
       },
-      error: (err) => {
+      error: () => {
         console.log('Kid updated failed');
         this.deleteLoading.set(false);
       },
@@ -131,6 +124,13 @@ export class EditKidForm implements OnInit {
     if (newAge < 1) newAge = 1;
 
     this.form.controls.age.setValue(newAge);
+  }
+
+  showToast() {
+    this.toastVisible = true;
+    setTimeout(() => {
+      this.toastVisible = false;
+    }, 2000);
   }
 
   back() {
