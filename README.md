@@ -33,13 +33,22 @@ Dummy data was used to provide these screenshots.
 <img width="388" height="867" alt="image" src="https://github.com/user-attachments/assets/5466595e-d513-4853-97ec-aa4c80f06657" />
 
 ### Parent Dashboard
-<img width="389" height="840" alt="image" src="https://github.com/user-attachments/assets/24975135-4265-4906-b871-9f0ddba81237" />
+<img width="388" height="842" alt="image" src="https://github.com/user-attachments/assets/11c61abb-155e-4daf-8bf4-39de81fa9d6c" />
 
 ### Chore Details
 <img width="387" height="867" alt="image" src="https://github.com/user-attachments/assets/38752786-fde0-4637-82aa-70d4b92b6874" />
 
+### Edit Chore Settings
+<img width="390" height="841" alt="image" src="https://github.com/user-attachments/assets/cfab7269-791d-4936-92b2-9f09bd27546f" />
+
 ### Kids Management Page
 <img width="387" height="844" alt="image" src="https://github.com/user-attachments/assets/bd3b7479-c302-4fcb-9091-fc537e212be8" />
+
+### Edit Kid Page
+<img width="388" height="844" alt="image" src="https://github.com/user-attachments/assets/2d9cc156-f8c4-4507-90ce-9574d6d0fbcb" />
+
+### Parent Settings
+<img width="389" height="842" alt="image" src="https://github.com/user-attachments/assets/584784a0-8c34-47ed-ace1-3c65b559dc68" />
 
 ## Architecture
 
