@@ -10,6 +10,7 @@
     <app-kid-selector-header
       [kids]="vm.kids"
       [selectedKidId]="vm.selectedKid?.id"
+      [kidHeaderText]="'Add a shop item to get started!'"
       (kidSelected)="vm.selectedKid = $event"
     />
   </app-header>
