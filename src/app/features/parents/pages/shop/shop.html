@@ -7,12 +7,14 @@
       buttonIcon: '+',
     }"
   >
-    <app-kid-selector-header
-      [kids]="vm.kids"
-      [selectedKidId]="vm.selectedKid?.id"
-      [kidHeaderText]="'Add a shop item to get started!'"
-      (kidSelected)="vm.selectedKid = $event"
-    />
+    @if (vm.kids.length > 0) {
+      <app-kid-selector-header
+        [kids]="vm.kids"
+        [selectedKidId]="vm.selectedKid?.id"
+        [kidHeaderText]="'Add a shop item to get started!'"
+        (kidSelected)="vm.selectedKid = $event"
+      />
+    }
   </app-header>
 
   <!-- CONTENT -->
@@ -25,15 +27,25 @@
           {{ `${vm.shopItems.length} ${vm.shopItems.length > 1 ? 'items' : 'item'}` }}
         </div>
       </div>
-      <div class="items-list">
-        @for (shopItem of vm.shopItems; track shopItem.id) {
-          <app-shop-card
-            [shopItem]="shopItem"
-            [deleteLoading]="deleteLoadingId === shopItem.id"
-            (deleteEmitter)="delete($event)"
-          />
-        }
-      </div>
+      @if (vm.kids.length === 0) {
+        <div class="no-kids-content-state">
+          <div class="no-kids-content-icon">🛍️</div>
+          <div class="no-kids-content-title">Shop is waiting</div>
+          <div class="no-kids-content-sub">
+            Head over to the Kids tab to add your first kid,<br />then come back to set up rewards.
+          </div>
+        </div>
+      } @else {
+        <div class="items-list">
+          @for (shopItem of vm.shopItems; track shopItem.id) {
+            <app-shop-card
+              [shopItem]="shopItem"
+              [deleteLoading]="deleteLoadingId === shopItem.id"
+              (deleteEmitter)="delete($event)"
+            />
+          }
+        </div>
+      }
     </div>
   </div>
 
